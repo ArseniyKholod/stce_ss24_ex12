@@ -2,7 +2,7 @@
 BASE_DIR=/home/stce/Documents/git/stce/cppNum/stce_ss24_ex12/ex12/v2.5
 CPPC=g++ -Wall -Wextra -pedantic -O3 
 INC=-I$(BASE_DIR) 
-THIRDPARTY_INC=-I$(BASE_DIR)/../thirdParty/ad -I$(BASE_DIR)/../thirdParty/eigen-3.4.0 
+THIRDPARTY_INC=-I$(BASE_DIR)/../../thirdParty/ad -I$(BASE_DIR)/../../thirdParty/eigen-3.4.0 
 
 main.exe : main.o
 	$(CPPC) $< -o$@

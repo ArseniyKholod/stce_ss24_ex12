@@ -1,5 +1,0 @@
-add_custom_target(case_studies)
-add_subdirectory(pde)
-add_subdirectory(diffusion)
-add_subdirectory(mc)
-add_subdirectory(race)
