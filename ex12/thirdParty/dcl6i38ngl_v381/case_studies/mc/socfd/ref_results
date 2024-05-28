@@ -1,0 +1,3 @@
+Y=34.841 in (12.248, 57.435)
+2nd-order finite differences too unstable to give reproducible numbers on various platforms.
+Run with second parameter to print derivative results.

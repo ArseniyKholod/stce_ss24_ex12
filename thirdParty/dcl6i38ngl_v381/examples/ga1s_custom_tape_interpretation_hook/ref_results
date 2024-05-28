@@ -1,0 +1,33 @@
+Printing indices of nonzero adjoints for j=0:
+Input variable stored in index 2 has corresponding derivative = -1.
+Input variable stored in index 1 has corresponding derivative = 2.
+
+
+Printing indices of nonzero adjoints for j=1:
+Input variable stored in index 3 has corresponding derivative = -1.
+Input variable stored in index 2 has corresponding derivative = 2.
+Input variable stored in index 1 has corresponding derivative = -1.
+
+
+Printing indices of nonzero adjoints for j=2:
+Input variable stored in index 4 has corresponding derivative = -1.
+Input variable stored in index 3 has corresponding derivative = 2.
+Input variable stored in index 2 has corresponding derivative = -1.
+
+
+Printing indices of nonzero adjoints for j=3:
+Input variable stored in index 4 has corresponding derivative = 2.
+Input variable stored in index 3 has corresponding derivative = -1.
+
+
+Printing elements of the sparse Jacobian matrix stored in coordinate sparse format:
+(row = 0, column = 1, value = -1)
+(row = 0, column = 0, value = 2)
+(row = 1, column = 2, value = -1)
+(row = 1, column = 1, value = 2)
+(row = 1, column = 0, value = -1)
+(row = 2, column = 3, value = -1)
+(row = 2, column = 2, value = 2)
+(row = 2, column = 1, value = -1)
+(row = 3, column = 3, value = 2)
+(row = 3, column = 2, value = -1)

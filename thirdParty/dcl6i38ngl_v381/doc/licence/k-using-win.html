@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<HTML LANG=EN>
+<META http-equiv="Content-Type" content="text/html">
+<STYLE TYPE="text/css">
+<!--
+.indent1cm
+    {
+    padding-left: 1cm;
+    }
+-->
+</STYLE>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Kusari User Guide Release 2.2 (Windows)</TITLE>
+</HEAD>
+<BODY>
+<H1>Kusari User Guide Release 2.2 (Windows)</H1>
+<H2><A NAME="AUTOTOC_1"></A>1 
+Introduction</H2>
+<P>
+This document describes the Kusari Licence Management System for the user of
+products which it controls.
+<H2><A NAME="AUTOTOC_2"></A>2 
+Where Kusari looks for licence information</H2>
+<P>
+Kusari looks for licence information based on the <TT>NAG_KUSARI_FILE</TT>
+environment variable.
+This variable should contain a file name (path), a licence server
+specification, or a comma-separated list of file names and licence servers.
+It can also specify that the licence is in the registry (<TT>#@R</TT>) or on
+a USB key (<TT>#@U</TT>).
+<P>
+A file name can contain any printing character except comma (<TT>,</TT>),
+semi-colon (<TT>;</TT>) or at-sign (<TT>@</TT>). A colon (<TT>:</TT>) is permitted
+only following a single drive letter at the beginning of the filename.
+For example, <TT>c:\somedir\somefile.something</TT>.
+<P>
+A licence server specification consists of a server name (or IP number)
+followed by a colon, and optionally by a port number.  For example,
+<TT>some-machine.some-company.com:</TT>.
+<P>
+When a product requests a licence, Kusari will visit each file, or ask each
+server, in turn, until it finds one with a potential licence.
+It will then attempt to check out a licence from that source; if this fails
+the failure will be reported and no further sources will be checked.
+<P>
+If the environment variable <TT>NAG_KUSARI_FILE</TT> is not set,
+or if no potential licence has been found, Kusari will then look in the
+default locations for a licence; these are
+<OL>
+<LI>
+the Windows Registry;
+<LI>
+the files <TT>nag.key</TT>, <TT>nag.licence</TT> and <TT>nagware.licence</TT>
+(in that order) in the current directory;
+<LI>
+the same files in the user's home directory (found via <TT>HOME</TT> or
+<TT>HOMEPATH</TT>);
+<LI>
+depending on the software product, the same files in the
+product's installation directory;
+<LI>
+for a USB key.
+</OL>
+<P>
+The environment variable may be set as follows:
+<OL>
+<LI>
+Open System in the Control Panel
+(this may be under the performance and maintenance category).
+<LI>
+On the Advanced tab, click Environment Variables, click New, insert
+<TT>NAG_KUSARI_FILE</TT> as the variable name and the name of the licence file,
+e.g. <TT>c:\somedir\somefilename.something</TT>, as the value.
+</OL>
+<P>
+If Kusari searches the registry, it will look for product AASYSVVPC
+using the registry key
+<TT>SOFTWARE\Numerical Algorithms Group\AASYSVVPC</TT>
+under first <TT>HKEY_CURRENT_USER</TT> and then <TT>HKEY_LOCAL_MACHINE</TT>.
+If found, it will either use a licence (stored as Licence) or access a
+server specification (stored as Server).
+The <TT>klreg</TT> program can be used to store or display a licence
+key or server specification.
+<H2><A NAME="AUTOTOC_3"></A>3 
+Single machine licences</H2>
+<P>
+A single machine licence is provided in a licence file; this may be stored in
+the registry using <TT>klreg</TT> (see later section) or accessed directly by
+the software as determined by the <TT>NAG_KUSARI_FILE</TT> environment variable
+(see above).
+<P>
+A licence file may contain blank lines, comment lines (beginning with a
+<TT>'#'</TT> or <TT>'!'</TT> character, and licence key lines.
+Here is a sample licence file:
+<PRE>
+! Licence file for Fred Nurke's Machine.
+
+! A full licence for the NAGWare f95 compiler, Release 4.1
+NPW3241NA FULL "qfrdwhyMoQFkfpm5e6ESprJmtE"
+
+! A trial licence for the NAGWare f95 compiler, Release 5.0
+NPW3250NA TRIAL 2004/10/05 "EMnxidA3oeojOFlYvi5ibxPjB7"
+
+! An annual licence for the NAG C Library, Mark 7:
+CLW3270NA NODE 2005/01/01 "xhhhTkzEiUPgdIpwIbCHgrBjjv"
+! That's all folks.
+</PRE>
+<P>
+Depending on the specific hardware features of a machine, a licence key line
+may contain multiple key specifications, e.g.
+<PRE>
+NPW3242NA FULL "xhhhTkzEiUPgdIpwIbCHgrBjjv" "EMnxidA3oeojOFlYvi5ibxPjB7"
+</PRE>
+The purpose of the additional key(s) is to ensure that the licence
+software functions correctly even for machines with unusual hardware, and
+has no significance for the user.
+On some machines the key specifications take up more than one line, in
+which case each line except the last will end with an ampersand (&amp;),
+and each line but the first will start with an ampersand; for example,
+<PRE>
+NPW3250NB FULL "GiioUjNInkfkuBl8HgbLgunh5y" "iBdlgdsxn9vl1Qggfc4NaPDkpK" &amp;
+&amp; "BVe3We9slESmL=glKl8fiXReQY"
+</PRE>
+<A NAME="AUTOTOC_3_1"></A><H3>3.1 
+Trial (Demo) Licences</H3>
+A trial licence provides limited access to the specified software for an
+evaluation period.
+It is indicated by the <TT>"TRIAL"</TT> keyword, and contains an expiry date
+and a licence key.
+<P>
+When the evaluation is finished, it is recommended that the trial licence
+key lines be deleted from the licence file.
+<A NAME="AUTOTOC_3_2"></A><H3>3.2 
+Node Licences</H3>
+A node licence provides full access to the specified software, on a single
+machine, for the duration of the licence period.
+The identification of the machine on which the software is to be run is
+required for the generation of a licence key; this is produced by the
+<TT>khostid</TT> program.
+<P>
+A node licence is indicated by the <TT>"NODE"</TT> or <TT>"NODEG"</TT> keyword, and
+contains an expiry date and a licence key.
+<P>
+When a licence is renewed, the old licence key line must be deleted and the
+new licence key line inserted.
+<A NAME="AUTOTOC_3_3"></A><H3>3.3 
+Perpetual Licences</H3>
+A perpetual licence provides full access to the software, on a single machine,
+for an indefinite period.
+This requires the machine identification produced by <TT>khostid</TT>.
+(Also, perpetual licences are only available for some software products.)
+<P>
+A perpetual licence is indicated by the <TT>"FULL"</TT> keyword, and contains a
+licence key but no expiry date.
+<A NAME="AUTOTOC_3_4"></A><H3>3.4 
+Server Redirections</H3>
+A server redirection line in a licence file instructs Kusari to ask a licence
+server; it consists of an optional product code, followed by the <TT>SERVER</TT>
+keyword and finally a licence server specification.
+Example server redirection lines are:
+<PRE>
+NPW3251NA SERVER some-machine.some-company.com:
+SERVER another-machine.some-company.com:
+</PRE>
+The first line redirects Kusari to the named server for the product
+<TT>NPW3251NA</TT> only.
+The second line redirects Kusari to the named server for all products.
+<H2><A NAME="AUTOTOC_4"></A>4 
+Licence Servers</H2>
+<P>
+Site licences are provided by licence servers; the licences provided by a
+particular server are contained in its control file.
+<P>
+All site licences provide access to the software to anyone at a site who
+can communicate with the licence server (over the local network).
+<P>
+Thus successful use of a site licence from a user program requires the
+following:
+<OL>
+<LI>
+The licence server must be running on the server machine.
+<LI>
+The licence key line for the site licence must appear in the control file for
+that licence server.
+<LI>
+The user program must have the <TT>NAG_KUSARI_FILE</TT> environment variable set
+to refer to the licence server.
+For example, if the licence server is running on machine <TT>ls.fred.co.uk</TT>,
+with the default port number,
+the <TT>NAG_KUSARI_FILE</TT> environment variable should contain
+<TT>ls.fred.co.uk:</TT>.
+(Alternatively, <TT>NAG_KUSARI_FILE</TT> could point to a licence file that
+contained a redirection line for the server <TT>ls.fred.co.uk:</TT>.)
+</OL>
+<P>
+The installation process for a licence server is described in the Kusari
+Installation Guide.
+<A NAME="AUTOTOC_4_1"></A><H3>4.1 
+Floating Licences</H3>
+A floating licence authorises the licence server to permit up to a specified
+number of concurrent users of the software.
+<P>
+One licence is required for each combination of user id and machine for
+which concurrent use is required; for example, two different users on the same
+machine will require two licences, as will the same user on two different
+machines.  However, only one licence is required for multiple uses by the same
+user on a single machine.
+<P>
+If the licence server cannot grant a licence request for a product because all
+of its floating licences have already been checked out, the product will either
+queue for a licence to become available or terminate with an error message.
+The default action is to queue for a licence, unless a product-specific option
+has been used (e.g. for the f95 compiler the <TT>-noqueue</TT> option) or the
+<TT>NAG_FLOATING_NOQUEUE</TT> environment variable is set.
+<P>
+When a program has to wait for a floating licence, it may (depending on the
+software product) display an informative message indicating that it is queued.
+This message also indicates the position in the queue.
+When a licence is finally received, an informative message may be produced;
+the program will then continue its normal execution.
+<H2><A NAME="AUTOTOC_5"></A>5 
+Windows Registry Handling</H2>
+<P>
+The <TT>klreg</TT> program is provided for handling Kusari licences in the
+Windows Registry.
+Note that Administrator privilege is required for modifications that affect
+all users (and that is their default), non-administrator users can only
+affect the settings for themselves.
+<P>
+This program is a command-line program that must be executed from a command
+prompt.
+<A NAME="AUTOTOC_5_1"></A><H3>5.1 
+Storing licence information</H3>
+<UL>
+<LI>
+To install a node-locked or TRIAL licence for the product AASYSVVPC,
+stored in the file <TT>licence.dat</TT>:
+<BR>
+<TT>klreg AASYSVVPC licence.dat</TT>
+<LI>
+If the licence is stored on a USB key:
+<BR>
+<TT>klreg AASYSVVPC @#U</TT>
+<LI>
+If the licence is a floating or site licence accessible on server.name.edu:
+<BR>
+<TT>klreg AASYSVVPC server.name.edu:</TT>
+</UL>
+<P>
+Also, if several licences are in the file <TT>licence.dat</TT>, they may all be
+loaded with the single command
+<BR>
+<TT>klreg -load licence.dat</TT>
+<A NAME="AUTOTOC_5_2"></A><H3>5.2 
+Deleting licence information</H3>
+To delete the information in the registry about product AASYSVVPC:
+<BR>
+<TT>klreg -delete AASYSVVPC</TT>
+<A NAME="AUTOTOC_5_3"></A><H3>5.3 
+Displaying licence information</H3>
+To display the information in the registry about product AASYSVVPC:
+<BR>
+<TT>klreg -show AASYSVVPC</TT>
+<P>
+To display the information in the registry about all NAG products:
+<BR>
+<TT>klreg -show</TT>
+<A NAME="AUTOTOC_5_4"></A><H3>5.4 
+Options</H3>
+The following options may be specified for any <TT>klreg</TT> command.
+<DL>
+<DT><B>/allusers</B></DT>
+<DD>Store, delete or show information for all users (i.e. in
+<TT>HKEY_LOCAL_MACHINE</TT>).
+This is the default for Administrator for the product store commands.
+</DD>
+<DT><B>/all_and_current_user</B></DT>
+<DD>Delete or show information for all users and for the current user (i.e. in
+both <TT>HKEY_LOCAL_MACHINE</TT> and <TT>HKEY_CURRENT_USER</TT>).
+This is the default for Administrator for the <TT>-delete</TT> and <TT>-show</TT>
+commands.
+</DD>
+<DT><B>/current_user</B></DT>
+<DD>Store, delete or show information for the current user only (i.e. in
+<TT>HKEY_CURRENT_USER</TT>).
+This is the default for non-Administrators.
+</DD>
+<DT><B>/help</B></DT>
+<DD>Display help information.
+</DD>
+<DT><B>/overwrite</B></DT>
+<DD>Overwrite the registry key if it already exists.
+</DD>
+<DT><B>/quiet</B></DT>
+<DD>Suppress informative messages.
+</DD>
+<DT><B>/verbose</B></DT>
+<DD>Produce informative messages.  This is the default.
+</DL>
+<H2><A NAME="AUTOTOC_6"></A>6 
+Troubleshooting</H2>
+<P>
+If the application reports ``<TT>Error: Licence file not found</TT>'', check
+<OL>
+<LI>
+The environment variable <TT>NAG_KUSARI_FILE</TT> is set correctly.
+<LI>
+The environment variable contains the full pathname of the licence file.
+<LI>
+The file is readable.
+</OL>
+</BODY>
+</HTML>

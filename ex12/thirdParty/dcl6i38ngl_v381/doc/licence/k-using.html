@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<HTML LANG=EN>
+<META http-equiv="Content-Type" content="text/html">
+<STYLE TYPE="text/css">
+<!--
+.indent1cm
+    {
+    padding-left: 1cm;
+    }
+-->
+</STYLE>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Kusari User Guide (Unix) Release 2.2</TITLE>
+</HEAD>
+<BODY>
+<H1>Kusari User Guide (Unix) Release 2.2</H1>
+<H2><A NAME="AUTOTOC_1"></A>1 
+Introduction</H2>
+<P>
+This document describes the Kusari Licence Management System for the user of
+products which it controls.
+<H2><A NAME="AUTOTOC_2"></A>2 
+Where Kusari looks for licence information</H2>
+<P>
+Kusari looks for licence information based on the <TT>NAG_KUSARI_FILE</TT>
+environment variable.
+This variable should contain a file name (path), a licence server
+specification, or a comma-separated list of file names and licence servers.
+<P>
+A file name can contain any printing character except comma (<TT>,</TT>),
+semi-colon (<TT>;</TT>), at-sign (<TT>@</TT>), or colon (<TT>:</TT>).
+For example,
+<TT>/somedirectory/somefilename.something</TT>.
+<P>
+A licence server specification consists of a server name (or IP number)
+followed by a colon, and optionally by a port number.  For example,
+<TT>some-machine.some-company.com:</TT>.
+<P>
+When a product requests a licence, Kusari will visit each file, or ask each
+server, in turn, until it finds one with a potential licence.
+It will then attempt to check out a licence from that source; if this fails
+the failure will be reported and no further sources will be checked.
+<P>
+If the environment variable <TT>NAG_KUSARI_FILE</TT> is not set, Kusari will look
+for the files <TT>nag.key</TT>, <TT>nag.licence</TT> and <TT>nagware.licence</TT>
+(in that order) firstly in the current working directory and secondly in the
+user's home directory.
+Depending on the software product it might also look for these files in the
+product's installation directory.
+<P>
+The environment variable may be set by the <TT>setenv</TT> command in the
+C-shell, e.g.
+<PRE>
+               setenv NAG_KUSARI_FILE mylicence.data
+</PRE>
+or by the <TT>export</TT> command in the Bourne shell, e.g.
+<PRE>
+               export NAG_KUSARI_FILE=mylicence.data
+</PRE>
+<H2><A NAME="AUTOTOC_3"></A>3 
+Single machine licences</H2>
+<P>
+Single machine licences are provided in licence files, accessed directly by
+the software as determined by the <TT>NAG_KUSARI_FILE</TT> environment variable
+(see above).
+<P>
+A licence file may contain blank lines, comment lines (beginning with a
+<TT>'#'</TT> or <TT>'!'</TT> character, and licence key lines.
+Here is a sample licence file:
+<PRE>
+! Licence file for Fred Nurke's Machine.
+
+! A full licence for the NAGWare f95 compiler, Release 4.1
+NPBSD41NA FULL "qfrdwhyMoQFkfpm5e6ESprJmtE"
+
+! A trial licence for the NAGWare f95 compiler, Release 5.0
+NPLUX50NA TRIAL 2004/10/05 "EMnxidA3oeojOFlYvi5ibxPjB7"
+
+! A licence for the NAG C Library on this machine, Mark 7:
+CLLUX70NA NODE 2005/01/01 "xhhhTkzEiUPgdIpwIbCHgrBjjv"
+
+! That's all folks.
+</PRE>
+<P>
+Depending on the specific hardware features of a machine, a licence key line
+may contain multiple key specifications, e.g.
+<PRE>
+NPBSD42NA FULL "xhhhTkzEiUPgdIpwIbCHgrBjjv" "EMnxidA3oeojOFlYvi5ibxPjB7"
+</PRE>
+The purpose of the additional key(s) is to ensure that the licence
+software functions correctly even for machines with unusual hardware, and
+has no significance for the user.
+On some machines the key specifications take up more than one line, in
+which case each line except the last will end with an ampersand (&amp;),
+and each line but the first will start with an ampersand; for example,
+<PRE>
+NPLUX50NA FULL "GiioUjNInkfkuBl8HgbLgunh5y" "iBdlgdsxn9vl1Qggfc4NaPDkpK" &amp;
+&amp; "BVe3We9slESmL=glKl8fiXReQY"
+</PRE>
+<A NAME="AUTOTOC_3_1"></A><H3>3.1 
+Trial (Demo) Licences</H3>
+A trial licence provides limited access to the specified software for an
+evaluation period.
+It is indicated by the <TT>"TRIAL"</TT> keyword, and contains an expiry date
+and a licence key.
+<P>
+When the evaluation is finished, it is recommended that the trial licence
+key lines be deleted from the licence file.
+<A NAME="AUTOTOC_3_2"></A><H3>3.2 
+Node Licences</H3>
+A node licence provides full access to the specified software, on a single
+machine, for the duration of the licence period.
+The identification of the machine on which the software is to be run is
+required for the generation of a licence key; this is produced by the
+<TT>khostid</TT> program.
+<P>
+A node licence is indicated by the <TT>"NODE"</TT> or <TT>"NODEG"</TT> keyword, and
+contains an expiry date and a licence key.
+<P>
+When a licence is renewed, the old licence key line must be deleted and the
+new licence key line inserted.
+<A NAME="AUTOTOC_3_3"></A><H3>3.3 
+Perpetual Licences</H3>
+A perpetual licence provides full access to the software, on a single machine,
+for an indefinite period.
+This requires the machine identification produced by <TT>khostid</TT>.
+(Also, perpetual licences are only available for some software products.)
+<P>
+A perpetual licence is indicated by the <TT>"FULL"</TT> keyword, and contains a
+licence key but no expiry date.
+<A NAME="AUTOTOC_3_4"></A><H3>3.4 
+Server Redirections</H3>
+A server redirection line in a licence file instructs Kusari to ask a licence
+server; it consists of an optional product code, followed by the <TT>SERVER</TT>
+keyword and finally a licence server specification.
+Example server redirection lines are:
+<PRE>
+NPBSD51NA SERVER some-machine.some-company.com:
+SERVER another-machine.some-company.com:
+</PRE>
+The first line redirects Kusari to the named server for the product
+<TT>NPBSD51NA</TT> only.
+The second line redirects Kusari to the named server for all products.
+<H2><A NAME="AUTOTOC_4"></A>4 
+Licence Servers</H2>
+<P>
+Site licences are provided by licence servers; the licences provided by a
+particular server are contained in its control file.
+<P>
+All site licences provide access to the software to anyone at a site who
+can communicate with the licence server (over the local network).
+<P>
+Thus successful use of a site licence from a user program requires the
+following:
+<OL>
+<LI>
+The licence server must be running on the server machine.
+<LI>
+The licence key line for the site licence must appear in the control file for
+that licence server.
+<LI>
+The user program must have the <TT>NAG_KUSARI_FILE</TT> environment variable set
+to refer to the licence server.
+For example, if the licence server is running on machine <TT>ls.fred.co.uk</TT>,
+with the default port number,
+the <TT>NAG_KUSARI_FILE</TT> environment variable should contain
+<TT>ls.fred.co.uk:</TT>.
+(Alternatively, <TT>NAG_KUSARI_FILE</TT> could point to a licence file that
+contained a redirection line for the server <TT>ls.fred.co.uk:</TT>.)
+</OL>
+<P>
+The installation process for a licence server is described in the Kusari
+Installation Guide.
+<A NAME="AUTOTOC_4_1"></A><H3>4.1 
+Floating Licences</H3>
+A floating licence authorises the licence server to permit up to a specified
+number of concurrent users of the software.
+<P>
+One licence is required for each combination of user id and machine for
+which concurrent use is required; for example, two different users on the same
+machine will require two licences, as will the same user on two different
+machines.  However, only one licence is required for multiple uses by the same
+user on a single machine.
+<P>
+If the licence server cannot grant a licence request for a product because all
+of its floating licences have already been checked out, the product will either
+queue for a licence to become available or terminate with an error message.
+The default action is to queue for a licence, unless a product-specific option
+has been used (e.g. for the f95 compiler the <TT>-noqueue</TT> option) or the
+<TT>NAG_FLOATING_NOQUEUE</TT> environment variable is set.
+<P>
+When a program has to wait for a floating licence, it may (depending on the
+software product) display an informative message indicating that it is queued.
+This message also indicates the position in the queue.
+When a licence is finally received, an informative message may be produced;
+the program will then continue its normal execution.
+<H2><A NAME="AUTOTOC_5"></A>5 
+Troubleshooting</H2>
+<P>
+If the application reports ``<TT>Error: Licence file not found</TT>'', check
+<OL>
+<LI>
+The environment variable <TT>NAG_KUSARI_FILE</TT> is set correctly.
+<LI>
+The environment variable contains the full pathname of the licence file.
+<LI>
+The file is readable.
+</OL>
+</BODY>
+</HTML>

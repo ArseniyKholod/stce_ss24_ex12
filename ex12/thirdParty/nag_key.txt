@@ -1,0 +1,59 @@
+! WINDOWS KEYS
+
+! Please note that this file contains licence keys and installation instructions
+
+!
+
+! WINDOWS KEYS AND INSTALLATION INSTRUCTIONS 
+
+! Cut and paste all the text below between 'NAG key begin'
+
+! and 'NAG key end' into the licence installer 
+
+! GUI supplied with the NAG software in your download.
+
+!
+
+
+
+! NAG key begin
+
+DCW6I38NE ANNUAL CR11550:12754985 2023/03/31 "SSi6Tkv7bOipOzeF+g7BgD5ifQ"
+
+! NAG key end
+
+! LINUX KEYS
+
+! Please note that this file contains licence keys and installation instructions
+
+!
+
+! ANNUAL, NODE, FULL and TRIAL keys
+
+! ---------------------------------
+
+! These key types do not require you to run a Kusari licence server.
+
+! The way to install them depends on the computer system you are using.
+
+!
+
+!------ Installing non-SITE keys on Linux or other UNIX-like systems ------
+
+! Please save the licence key(s) shown below to a plain text file of your choice, and set
+
+! the environment variable NAG_KUSARI_FILE to be the full path name of this
+
+! file.
+
+!
+
+
+
+! NAG key begin
+
+DCL6I38NG ANNUAL CR11550:12754985 2023/03/31 "DAeC+miclGcbI0joLjjWckncPC"
+
+! NAG key end
+
+

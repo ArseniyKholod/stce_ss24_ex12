@@ -1,0 +1,2 @@
+Finite differences too unstable to give reproducible numbers on various platforms.
+Run with third parameter to print derivative results.

@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<HTML LANG=EN>
+<META http-equiv="Content-Type" content="text/html">
+<STYLE TYPE="text/css">
+<!--
+.indent1cm
+    {
+    padding-left: 1cm;
+    }
+-->
+</STYLE>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Kusari Installation Guide (Unix) Release 2.2</TITLE>
+</HEAD>
+<BODY>
+<H1>Kusari Installation Guide (Unix) Release 2.2</H1>
+<H2><A NAME="AUTOTOC_1"></A>1 
+Introduction</H2>
+<P>
+This document is for system administrators.
+It describes the installation process of the Kusari Licence Management System.
+<H2><A NAME="AUTOTOC_2"></A>2 
+Overview of Kusari</H2>
+<A NAME="AUTOTOC_2_1"></A><H3>2.1 
+The <TT>NAG_KUSARI_FILE</TT> variable</H3>
+Kusari looks for licence information based on the <TT>NAG_KUSARI_FILE</TT>
+environment variable.
+<P>
+This variable may contain a file name (path), a licence server
+specification, or a comma-separated list of file names and licence servers.
+<P>
+File names are for licence files containing keys for trial licences and
+machine-local (node) licences.
+<P>
+A licence server specification is a machine name or IP address followed by a
+colon, optionally followed by the port number (see below).
+<A NAME="AUTOTOC_2_2"></A><H3>2.2 
+The <TT>khostid</TT> program</H3>
+The <TT>khostid</TT> program produces the machine identification string.
+<P>
+This is needed for machine-local licences (node licences and perpetual
+licences); it must be run on the machine for which the licence is intended.
+<P>
+It is also needed for site licences (both floating licences and uncounted site
+licences); it must be run on the machine which is to be the licence server.
+<A NAME="AUTOTOC_2_3"></A><H3>2.3 
+Licence server communications</H3>
+In this release, the licence server will refuse to communicate with a machine
+on the other side of a NAT (network address translating) router.
+The <TT>testserver</TT> and <TT>testclient</TT> programs may be used to check that
+communication to a licence server can be successfully established.
+<H2><A NAME="AUTOTOC_3"></A>3 
+Package Contents</H2>
+<P>
+The distributed Kusari licence server package contains the following
+subdirectories:
+<DL>
+<DT>bin</DT>
+<DD>The executable files: <TT>khostid</TT>, <TT>klcheck</TT>, <TT>kldctl</TT>,
+<TT>naglmd</TT>, <TT>testclient</TT> and <TT>testserver</TT>.
+We recommend that these be installed into the directory <TT>/etc/NAG</TT>.
+</DD>
+<DT>doc</DT>
+<DD>The documentation; this includes the Installation Guide in both PDF and HTML
+(<TT>k-install.pdf</TT> and <TT>k-install.html</TT>) and the User Guide in both PDF
+and HTML (<TT>k-using.pdf</TT> and <TT>k-using.html</TT>).
+It may also contain system-specific installation instructions in a file named
+<TT>install-</TT><I>systemname</I><TT>.txt</TT>; if this exists it will be a plain
+text file which should be read together with this Installation Guide.
+</DD>
+<DT>other</DT>
+<DD>This subdirectory, if it exists, contains other system-specific files to help
+with Kusari installation and operation.
+They will be described in the system-specific installation guide in the
+<TT>doc/</TT> subdirectory.
+</DL>
+<H2><A NAME="AUTOTOC_4"></A>4 
+Recommended procedure</H2>
+<P>
+The recommended installation procedure for a site licence, where no Kusari
+licence server is currently being run, is as follows:
+<OL>
+<LI>
+Test the local network to ensure that licence server operation is possible,
+using the <TT>testserver</TT> and <TT>testclient</TT> programs.
+<LI>
+Use the <TT>khostid</TT> program on the server machine and send its
+identification string to NAG.
+<LI>
+When you receive the licence key(s) from NAG, save them to the server
+control file.
+<LI>
+Start the <TT>naglmd</TT> licence server on the server machine.
+<LI>
+Update the server machine's boot or startup scripts so that <TT>naglmd</TT> will
+be run automatically.
+</OL>
+<P>
+If the server machine is already running <TT>naglmd</TT>, the procedure is
+simpler:
+<OL>
+<LI>
+There is no need to test the local network, since it is already known to be
+working acceptably.
+<LI>
+Use the <TT>khostid</TT> program on the server machine and send its
+identification string to NAG.
+<LI>
+When you receive the licence key(s) from NAG, append them to the server control
+file.
+<LI>
+Stop and restart the <TT>naglmd</TT> licence server.
+</OL>
+<H2><A NAME="AUTOTOC_5"></A>5 
+Testing the local network</H2>
+<P>
+Two programs are supplied for testing the local network, these are
+<TT>testserver</TT> and <TT>testclient</TT>.
+<A NAME="AUTOTOC_5_1"></A><H3>5.1 
+The <TT>testserver</TT> program</H3>
+The <TT>testserver</TT> program should be run on the server machine.
+If it starts successfully, it will produce the message
+<PRE>
+[testserver started]
+</PRE>
+<P>
+If the server cannot start, it will produce an error message.
+The most likely error messages are either
+<PRE>
+?Port number conflict: TCP port 7733 is already in use
+</PRE>
+or
+<PRE>
+?Port number conflict: UDP port 7733 is already in use
+</PRE>
+These indicate that the default Kusari communication port number is already in
+use by another application on the server machine, and that another port number
+should be chosen.
+The procedure described below (``Choosing different port numbers'') should be
+followed.
+<P>
+Once the <TT>testserver</TT> program is running successfully, the
+<TT>testclient</TT> program should be used to test communications.
+An initial test should be to run the <TT>testclient</TT> on the server machine;
+if the default port numbers are being used, simply run <TT>testclient</TT> with
+no arguments.
+<P>
+The <TT>testserver</TT> program will produce informative messages when
+<TT>testclient</TT> is run, if communications can be established.
+A message is produced for each of the TCP and UDP tests; for a completely
+successful test it will display
+<PRE>
+TCP message test seems ok - reporting to testclient
+UDP test passed ok - reporting to testclient
+</PRE>
+If the TCP test passes but the UDP test fails, the second line will instead be
+<PRE>
+UDP test ****** FAILED ******
+</PRE>
+<P>
+The <TT>testserver</TT> program will exit on receiving an interrupt signal
+(<TT>SIGINT</TT>), e.g. by typing Ctrl-C on its terminal or into its window.
+<A NAME="AUTOTOC_5_2"></A><H3>5.2 
+The <TT>testclient</TT> program</H3>
+The <TT>testclient</TT> tests the communication between a client machine (one
+that will be running the software product) and the licence server machine.
+First, the <TT>testserver</TT> program should be running on the licence server
+machine.
+Then, the <TT>testclient</TT> program should be run.
+Its command line is:
+<P>
+<TT>testclient</TT> <I>server-spec</I>
+<P>
+The <I>server-spec</I> takes the same form as in the <TT>NAG_KUSARI_FILE</TT>
+variable, i.e. the server machine name followed by a colon, optionally followed
+by the port number.
+If no <I>server-spec</I> is present, it is treated as <TT>localhost:</TT>.
+<P>
+If the <TT>testclient</TT> program cannot connect to the <TT>testserver</TT>
+program, it will produce the message:
+<PRE>
+?Test FAILED - cannot connect to server
+(Perhaps it is not running, or on a different machine?)
+</PRE>
+You should check that you have specified the right machine name, and that
+either you are using the default port numbers or have specified the same port
+number for <TT>testclient</TT> as you did for <TT>testserver</TT>.
+<P>
+If both the TCP and UDP tests pass, <TT>testclient</TT> will display
+<PRE>
+TCP message test passed ok.
+UDP message test passed ok.
+</PRE>
+If the UDP test fails, the second line will be replaced by
+<PRE>
+UDP message test ****** FAILED ******
+</PRE>
+<P>
+If your site has multiple sub-nets, the <TT>testclient</TT> program should be run
+on a machine in each sub-net to confirm that it will work.
+<P>
+If you cannot get the <TT>testserver</TT> and <TT>testclient</TT> programs to
+communicate successfully, you should contact NAG with the exact messages that
+were produced.
+<A NAME="AUTOTOC_5_3"></A><H3>5.3 
+Choosing different port numbers</H3>
+Decide which port number to test; you should avoid any port number that is
+already in use or which may be in use; see the list maintained by the Internet
+Assigned Numbers Authority for guidance: this may be found at
+<B>http://www.iana.org/assignments/port-numbers</B>.
+<P>
+The procedure specified above for using <TT>testserver</TT> and <TT>testclient</TT>
+should be followed, but with the port number specified.
+For <TT>testserver</TT>, use the <I>-port</I> option; for example, to
+test port 7734, do
+<PRE>
+  testserver -port 7734
+</PRE>
+<P>
+For <TT>testclient</TT> program, specify the port number as part of the
+server name; for example, to communicate with the server on port 7734 on the
+local host do
+<PRE>
+  testclient localhost:7734
+</PRE>
+<H2><A NAME="AUTOTOC_6"></A>6 
+The server control file</H2>
+<P>
+The server control file contains all of the licences that will be controlled by
+the <TT>naglmd</TT> licence server, and may contain other control information
+as detailed below.
+<A NAME="AUTOTOC_6_1"></A><H3>6.1 
+Server licence key lines</H3>
+There are two kinds of server licence: uncounted and floating.
+<A NAME="AUTOTOC_6_1_1"></A><H4>6.1.1 
+Uncounted Licences</H4>
+An uncounted licence authorises the licence server to allow any number of
+concurrent uses of the software.
+<P>
+It is indicated by the <TT>SITE</TT> or <TT>SITEG</TT> keywords, and contains the
+expiry date and a licence key.
+<A NAME="AUTOTOC_6_1_2"></A><H4>6.1.2 
+Floating Licences</H4>
+A floating licence authorises the licence server to permit up to a specified
+number of concurrent users of the software.
+<P>
+One licence is required for each combination of user id and machine for
+which concurrent use is required; for example, two different users on the same
+machine will require two licences, as will the same user on two different
+machines.  However, only one licence is required for multiple uses by the same
+user on a single machine.
+<P>
+By default, products will queue for a licence if all the licences are currently
+checked out.
+An informative message may be produced (depending on the software product)
+when this happens.
+<P>
+A floating licence key line is indicated by the <TT>FLOATING</TT> or
+<TT>GFLOATING</TT> keywords, and
+contains the number of licences available, the expiry date, and a licence key.
+<A NAME="AUTOTOC_6_2"></A><H3>6.2 
+The <TT>LOG</TT> line</H3>
+The <TT>LOG</TT> line specifies the log file for <TT>naglmd</TT>.
+It begins with the <TT>LOG</TT> keyword, which is followed by a blank and then
+the filename.
+If the <TT>naglmd</TT> command line contains the <TT>-log</TT> option, the
+<TT>LOG</TT> line will be ignored.
+<P>
+If no <TT>LOG</TT> line is present, and the <TT>-log</TT> option is not used,
+<TT>naglmd</TT> will log any errors and information messages (such as licence
+requests) using the <I>syslog</I> facility.
+Errors will be logged with level <TT>LOG_ERR</TT>, warnings with
+<TT>LOG_WARNING</TT>, and information messages with <TT>LOG_INFO</TT>.
+Whether and how <TT>syslogd</TT> records these messages is governed by its own
+configuration: see the man pages on syslog, syslog.conf and syslogd for further
+information.
+<P>
+Any errors writing the log file will be reported to <I>syslog</I>, and execution
+will continue.
+<A NAME="AUTOTOC_6_3"></A><H3>6.3 
+The <TT>PORT</TT> line</H3>
+The <TT>PORT</TT> line specifies which TCP and UDP port numbers are used by
+<TT>naglmd</TT> for communication.
+This line is only very rarely needed, when there is a conflict between the
+default port numbers used by <TT>naglmd</TT> and another application running on
+the server machine.
+It begins with the <TT>PORT</TT> keyword, which is followed by a blank and then
+the TCP port number (this number must lie between 1025 and 49151).
+If the UDP port number differs from the TCP port number, it should be specified
+on the same line; it is separated from the TCP port number by a comma, and
+consists of the letter <TT>'U'</TT> followed by a number between 1025 and 49151.
+<P>
+Licence keys issued for one pair of port numbers will not work on any other
+ports.
+<A NAME="AUTOTOC_6_4"></A><H3>6.4 
+Comments</H3>
+A server control file may also contain blank lines and comment lines.
+Each comment line begins with a  <TT>'#'</TT> or <TT>'!'</TT> character,
+and is completely ignored.
+<A NAME="AUTOTOC_6_5"></A><H3>6.5 
+A sample server file</H3>
+<PRE>
+! This is where we want the log file to be written.
+!
+LOG /var/log/naglmd.log
+
+! We have a site licence for the NAG FL90 library (Mark 4) on Linux,
+! using the NAGWare f95 compiler.
+!
+FNLUX04DN SITEG 2006/12/31 "AidmYczVlY+hF9c1qhDydOja"
+
+! We have 10 floating licences for the NAGWare f95 compiler on Linux:
+!
+NPLUX50NA FLOATING=10 2006/12/31 "vKmOEjxwkeVjcjjkJgGuoW0k"
+
+! And that's all folks.
+</PRE>
+<H2><A NAME="AUTOTOC_7"></A>7 
+Running the licence server</H2>
+<P>
+Each <TT>naglmd</TT> licence server can only be run on its specified server
+machine, and the server machine can only run one <TT>naglmd</TT> server at a
+time.
+When run, it reads its server control file (by default this is located in
+<TT>/etc/NAG/naglmd.ctl</TT>).
+<P>
+If no errors are detected in the options or the control file, it will then
+detach from the controlling terminal and run in the background as a daemon;
+this will return you to the shell command prompt.
+No output is produced if the startup is successful; any errors encountered
+after startup will be written to the log file or reported to syslog.
+<P>
+The process id of the <TT>naglmd</TT> daemon is stored in <TT>/tmp/naglmd.pid</TT>.
+<P>
+<TT>naglmd</TT> normally logs all licence requests (whether granted or not), and
+any errors that might occur.
+<P>
+<TT>naglmd</TT> can be shut down by using the <TT>STOP</TT> command to
+<TT>kldctl</TT>.
+<TT>naglmd</TT> can also be shut down by sending it an interrupt signal (SIGINT)
+or terminate signal (SIGTERM), but this is not recommended.
+<A NAME="AUTOTOC_7_1"></A><H3>7.1 
+User id</H3>
+<TT>naglmd</TT> need not be run under the <TT>root</TT> user id; it will run
+successfully as long as it can read its control file and write messages to its
+log file.
+(However, it is safe to run <TT>naglmd</TT> as <TT>root</TT> because it only reads
+from its own control file and writes to its own log file.)
+<A NAME="AUTOTOC_7_2"></A><H3>7.2 
+Options</H3>
+<DL>
+<DT><B>-file</B><I> slfile</I></DT>
+<DD>Read the server control file <I>slfile</I> instead of <TT>/etc/NAG/naglmd.ctl</TT>.
+</DD>
+<DT><B>-help</B></DT>
+<DD>Display brief help message listing the possible options for <TT>naglmd</TT>.
+</DD>
+<DT><B>-log</B><I> logfile</I></DT>
+<DD>Write log messages to <I>logfile</I>.
+Errors attempting to write to the log file will be reported to syslog.
+This option overrides any <TT>LOG</TT> line in the server control file.
+</DD>
+<DT><B>-nodetach</B></DT>
+<DD>Run the licence server directly on the controlling terminal, do not detach and
+run as a daemon.
+</DD>
+<DT><B>-nolog_requests</B></DT>
+<DD>Do not write information about licence requests to the log file, only error
+and status messages.
+</DD>
+<DT><B>-port</B><I> number</I></DT>
+<DD>Use TCP port <I>number</I> instead of 7733.
+This option is overriden by any <TT>PORT</TT> line in the server control file.
+</DD>
+<DT><B>-uport</B><I> number</I></DT>
+<DD>Use UDP port <I>number</I> instead of 7733.
+This option is overriden by any <TT>PORT</TT> line in the server control file.
+</DD>
+<DT><B>-V</B></DT>
+<DD>If this option is supplied as the only option to naglmd it will display
+version information consisting of the Kusari Release numbers, and then
+exit.
+It cannot be supplied at the same time as any other option.
+</DL>
+<A NAME="AUTOTOC_7_3"></A><H3>7.3 
+Automatic startup</H3>
+It is recommended that <TT>naglmd</TT> be started automatically on the server
+machine.
+This can typically be achieved by adding its startup command to a system
+initialisation file such as <TT>/etc/rc.local</TT> (details vary depending
+on which version of Unix is being used).
+If the server control file is in the default location
+(<TT>/etc/NAG/naglmd.ctl</TT>), and contains a suitable <TT>LOG</TT> line, e.g.
+<PRE>
+LOG /var/log/naglmd.log
+</PRE>
+then  the startup command can be as simple as
+<PRE>
+   naglmd
+</PRE>
+<H2><A NAME="AUTOTOC_8"></A>8 
+Utility Programs</H2>
+<P>
+The <TT>klcheck</TT> program takes a single argument which is a NAG product code.
+It then attempts to check out that product and reports whether it was
+successful, and if successful the type of licence it obtained and from where.
+<P>
+The <TT>kldctl</TT> program is provided for controlling <TT>naglmd</TT>.
+It takes a command as its first argument.
+The <TT>PLIST</TT> command lists the product which are controlled
+by a particular <TT>naglmd</TT>.
+The <TT>PINFO</TT> command has a product code argument, and lists the
+details for that product on <TT>naglmd</TT>.
+The <TT>REREAD</TT> command causes <TT>naglmd</TT> to reread its control file.
+Finally, the <TT>STOP</TT> command shuts <TT>naglmd</TT> down.
+<P>
+The <TT>PLIST</TT> and <TT>PINFO</TT> commands can be used anywhere by anyone,
+but the <TT>STOP</TT> command can only be used on the machine running
+<TT>naglmd</TT>, and only by the same user.
+<P>
+The optional second argument is a licence server specification, as
+defined above, which only needs to be provided for a remote server or
+a non-default port number on a local server.
+<H2><A NAME="AUTOTOC_9"></A>9 
+System-specific Installation</H2>
+<P>
+Further system-specific installation information may be available; see the
+appropriate document (e.g. for FreeBSD 5.x, see install-FreeBSD5.txt).
+</BODY>
+</HTML>
