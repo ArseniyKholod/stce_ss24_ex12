@@ -1,5 +1,5 @@
 # edit according to your environment
-BASE_DIR=/home/uwe/Documents/git/stce/cppNum/ex12/v2.4
+BASE_DIR=/home/stce/Documents/git/stce/cppNum/stce_ss24_ex12/ex12/v2.4
 CPPC=g++ -Wall -Wextra -pedantic -O3 
 INC=-I$(BASE_DIR) 
 THIRDPARTY_INC=-I$(BASE_DIR)/../thirdParty/ad -I$(BASE_DIR)/../thirdParty/eigen-3.4.0 
