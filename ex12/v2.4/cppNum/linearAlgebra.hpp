@@ -46,7 +46,7 @@ namespace la {
         throw(math_error(std::string(std::string("Matrix and rhs-vector have diffirent number of \
 						  rows, linear system is not uniquely solvable"))));
       //matrix have to be invertible
-      if(is_approx_zero(A.determinant()))
+      if(A.determinant() == 0)
         throw(math_error(std::string("Matrix is singular, applying LLT algorithm for solving a \
                                       linear system is not possible.")));
       //matrix have to be positive definite

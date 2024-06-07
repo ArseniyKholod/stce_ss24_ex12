@@ -1,9 +1,9 @@
 #pragma once
-#include <exception>
+#include "cppNum_exception.hpp"
 #include <string>
 
 /// An exception class to handle mathematical errors
-class math_error: public std::exception {
+class math_error: public cppNum_exception {
   protected:
     /// Error message
     std::string what_arg;

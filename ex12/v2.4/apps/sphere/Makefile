@@ -10,5 +10,6 @@ main.o: $(BASE_DIR)/cppNum/iteration.hpp
 main.o: $(BASE_DIR)/cppNum/linearAlgebra.hpp
 main.o: $(BASE_DIR)/cppNum/derivative.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/is_approx.hpp
+main.o: $(BASE_DIR)/cppNum/exceptions/cppNum_exception.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/logic_error.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/math_error.hpp

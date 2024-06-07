@@ -26,6 +26,7 @@ namespace co {
 
 #include "cppNum/derivative.hpp"
 #include "cppNum/algebraicSystem/newton.hpp"
+#include <filesystem>
 
 namespace co {
 
@@ -48,7 +49,12 @@ namespace co {
 
   template<typename T, typename LINEAR_SOLVER_T>
   void newton_minimizer_t<T,LINEAR_SOLVER_T>::plot(const std::string& filename, int i) {
+    //check if folder of the given filename exists
+    std::filesystem::path file_path(filename);
+    if(!std::filesystem::exists(file_path))
+      throw(logic_error("File " + filename + " is impossible to open/create"));
     std::ofstream ofs(filename);
+    //checi if requested state exists
     if(i < 0 || i >= _states[0].rows())
       throw(logic_error("State outside the range is requested."));
     for (size_t k=0; k<_states.size(); ++k) 
@@ -57,7 +63,12 @@ namespace co {
 
   template<typename T, typename LINEAR_SOLVER_T>
   void newton_minimizer_t<T,LINEAR_SOLVER_T>::plot(const std::string& filename, int i, int j) {
+    //check if folder of the given filename exists
+    std::filesystem::path file_path(filename);
+    if(!std::filesystem::exists(file_path))
+      throw(logic_error("File " + filename + " is impossible to open/create"));
     std::ofstream ofs(filename);
+    //check if requested states exist
     if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
       throw(logic_error("State outside the range is requested."));
     for (size_t k=0; k<_states.size(); ++k) 
