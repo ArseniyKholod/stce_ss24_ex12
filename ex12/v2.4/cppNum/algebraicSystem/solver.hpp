@@ -20,7 +20,6 @@ namespace as {
 }
 
 #include <fstream>
-#include <filesystem>
 #include "cppNum/exceptions/logic_error.hpp"
 
 namespace as {
@@ -30,10 +29,6 @@ namespace as {
   
   template<typename T, typename SYSTEM_T>
   void solver_t<T,SYSTEM_T>::plot(const std::string& filename, int i) const {
-    //check if folder of the given filename exists
-    std::filesystem::path file_path(filename);
-    if(!std::filesystem::exists(file_path))
-      throw(logic_error("File " + filename + " is impossible to open/create"));
     std::ofstream ofs(filename);
     //check if requested state exists
     if(i < 0 || i >= _states[0].rows())
@@ -47,10 +42,6 @@ namespace as {
 
   template<typename T, typename SYSTEM_T>
   void solver_t<T,SYSTEM_T>::plot(const std::string& filename, int i, int j) const {
-    //check if folder of the given filename exist
-    std::filesystem::path file_path(filename);
-    if(!std::filesystem::exists(file_path))
-      throw(logic_error("File " + filename + " is impossible to open/create"));
     std::ofstream ofs(filename);
     //check if requested states exist
     if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
