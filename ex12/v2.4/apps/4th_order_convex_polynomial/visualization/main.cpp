@@ -1,5 +1,5 @@
 // info@stce.rwth-aachen.de
-#include "apps/parabola/parabola.hpp"
+#include "apps/4th_order_convex_polynomial/4th_order_convex_polynomial.hpp"
 #include "cppNum/convexObjective/newton.hpp"
 #include "cppNum/linearAlgebra.hpp"
 #include "cppNum/exceptions/cppNum_exception.hpp"
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     x=minimizer.run(x,p);
     minimizer.plot("steps.plt",0,1);
   }
-  catch(const logic_error & e){
+  catch(cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

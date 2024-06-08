@@ -1,5 +1,5 @@
 // info@stce.rwth-aachen.de
-#include "apps/parabola/parabola.hpp"
+#include "apps/cosh/cosh.hpp"
 #include "cppNum/convexObjective/newton.hpp"
 #include "cppNum/linearAlgebra.hpp"
 #include "cppNum/derivative.hpp"
@@ -9,14 +9,16 @@
 int main(int argc, char* argv[]) {
   try{
     using BT=double;
+    using solver_BT=la::lu_solver_t<BT>;
     using namespace std;
     using T=ad::tangent_t<BT>;
+    using solver_T=la::lu_solver_t<T>;
     assert(argc==2); int np=stoi(argv[1]), nx=np; 
     la::vector_t<BT> p=la::vector_t<BT>::Random(np); 
   { // algorithmic differentiation 
     la::vector_t<T> p_t(np);
     for (int i=0;i<np;i++) p_t(i)=p(i);
-    co::newton_minimizer_t<T> minimizer(1e-7);
+    co::newton_minimizer_t<T,solver_T> minimizer(1e-7);
     cout << "x_p (ad) =" << endl;
     for (int i=0;i<np;i++) {
       la::vector_t<T> x_t=-4*la::vector_t<T>::Ones(nx); 
@@ -29,13 +31,13 @@ int main(int argc, char* argv[]) {
   }  
   { // symbolic differentiation (implicit function theorem)
     la::vector_t<BT> x=-4*la::vector_t<BT>::Ones(nx); 
-    co::newton_minimizer_t<BT> minimizer(1e-7);
+    co::newton_minimizer_t<BT, solver_BT> minimizer(1e-7);
     x=minimizer.run(x,p);
     cout << "x_p (sd) =" << endl;
     cout << derivative_t::ddfdxx<co::objective_t>(x,p).lu()
             .solve(-derivative_t::ddfdxp<co::objective_t>(x,p)) << endl;
-  }
-  catch(const cppNum_exception & e){
+  }}
+  catch(cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
