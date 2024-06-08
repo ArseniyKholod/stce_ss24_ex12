@@ -10,6 +10,7 @@ all :
 	cd cosh && make
 	cd cosh/visualization && make
 	cd cosh/ad && make
+	cd generate_exceptions && make
 test :
 	cd sphere && make test
 	cd sphere/ad && make test
@@ -23,6 +24,7 @@ depend :
 	cd cosh && make depend
 	cd cosh/visualization && make depend
 	cd cosh/ad && make depend
+	cd generate_exceptions && make depend
 clean :
 	cd sphere && make clean
 	cd sphere/visualization && make clean
@@ -33,5 +35,6 @@ clean :
 	cd cosh && make clean
 	cd cosh/visualization && make clean
 	cd cosh/ad && make clean
+	cd generate_exceptions && make clean
 
 .PHONY: all test depend clean
