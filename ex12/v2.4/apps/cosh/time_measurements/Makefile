@@ -13,9 +13,17 @@ main.o: $(BASE_DIR)/cppNum/exceptions/cppNum_exception.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/logic_error.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/math_error.hpp
 
+main_difference.exe : main_difference.o
+	$(CPPC) $< -o$@
+
+main_difference.o : main_difference.cpp
+	$(CPPC) -c $(INC) $(THIRDPARTY_INC) $< -o$@
+
 make plot: 
 	cd ../../../../../v2.4/apps/cosh/time_measurements && make 
 	cd ../../../../../v2.4/apps/cosh/time_measurements && ./main.exe
 	make
 	./main.exe
+	make main_difference.exe
+	./main_difference.exe
 	gnuplot run.gnuplot

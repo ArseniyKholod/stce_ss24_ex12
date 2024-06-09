@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
       << "||dfdx||=" << derivative_t::dfdx<co::objective_t>(x,p).norm() << endl
       << "spd(ddfdxx)=" << !(derivative_t::ddfdxx<co::objective_t>(x,p).llt().info()) << endl;
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

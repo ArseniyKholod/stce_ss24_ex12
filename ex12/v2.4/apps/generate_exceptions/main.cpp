@@ -20,7 +20,7 @@ int main() {
     A << 1.,2.,3.,4.,5.,6.,7.,8.,9.;
     lu_solver::run(A,b); 
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -34,7 +34,7 @@ int main() {
     A << 1.,2.,3.,4.,5.,6.,7.,8.,9.;
     llt_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -49,7 +49,7 @@ int main() {
     A << 1.,2.,3.,4.,5.,6.;
     lu_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -63,7 +63,7 @@ int main() {
     A << 1.,2.,3.,4.,5.,6.;
     llt_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -78,7 +78,7 @@ int main() {
     A << 2.,1.,2.,1.;
     lu_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -92,7 +92,7 @@ int main() {
     A << 2.,1.,2.,1.;
     llt_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -107,7 +107,7 @@ int main() {
     A << 1.,0.,0.,-1.;
     llt_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -121,7 +121,7 @@ int main() {
     A << 0.,-1.,1.,2.;
     llt_solver::run(A,b);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -136,7 +136,7 @@ int main() {
     x=minimizer.run(x,p);
     minimizer.plot("steps.plt",0,5);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){
@@ -150,7 +150,7 @@ int main() {
     x=minimizer.run(x,p);
     minimizer.plot("steps.plt",5);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

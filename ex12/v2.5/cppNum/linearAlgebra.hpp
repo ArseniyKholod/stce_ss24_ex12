@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Eigen/Dense"
+#include "exceptions/math_error.hpp"
 
 namespace la {
 
@@ -14,6 +15,16 @@ namespace la {
   template<typename T>
   struct lu_solver_t {
     static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) { 
+      //matrix have to be square
+      if(A.cols() != A.rows())
+        throw(ex::math_error("Matrix is not square, LU decomposition is not applicable"));
+      //matrix and vector must have equal number of rows
+      if(A.rows() != b.rows())
+        throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+      //matrix have to be invertible 
+      if(A.determinant() == 0)
+        throw(ex::math_error("Matrix is singular, applying LU algorithm for solving a linear system is not possible."));
+
       return A.lu().solve(b);
     }
   };
@@ -21,6 +32,19 @@ namespace la {
   template<typename T>
   struct llt_solver_t {
     static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) { 
+      //matrix have to be squared
+      if(A.cols() != A.rows())
+        throw(ex::math_error("Matrix is not square, LLT decomposition is not applicable"));
+      //matrix and vector must have equak number of rows
+      if(A.rows() != b.rows())
+        throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+      //matrix have to be invertible
+      if(A.determinant() == 0)
+        throw(ex::math_error("Matrix is singular, applying LLT algorithm for solving a linear system is not possible."));
+      //matrix have to be symmetric positive definite
+      if(A.llt().info())
+        throw(ex::math_error("Matrix is not symmetric positiv definite, LLT decomposition is not applicable."));
+
       return A.llt().solve(b);
     }
   };

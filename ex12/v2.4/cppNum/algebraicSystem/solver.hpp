@@ -32,7 +32,7 @@ namespace as {
     std::ofstream ofs(filename);
     //check if requested state exists
     if(i < 0 || i >= _states[0].rows())
-      throw(logic_error("State outside range is requested."));
+      throw(ex::logic_error("State outside range is requested."));
     for (const auto& state : _states)
       ofs << state(i) << " 0\n" << state(i) << ' ' 
           << SYSTEM_T::F(state,_parameters)(i)
@@ -45,7 +45,7 @@ namespace as {
     std::ofstream ofs(filename);
     //check if requested states exist
     if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
-      throw(logic_error("State outside range is requested."));
+      throw(ex::logic_error("State outside range is requested."));
     for (const auto& state : _states)
       ofs << state(i) << ' ' << state(j) << " 0\n" 
           << state(i) << ' ' << state(j) << ' ' 

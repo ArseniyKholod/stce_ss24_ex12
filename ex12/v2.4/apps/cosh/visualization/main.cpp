@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     x=minimizer.run(x,p);
     minimizer.plot("steps.plt",0,1);
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

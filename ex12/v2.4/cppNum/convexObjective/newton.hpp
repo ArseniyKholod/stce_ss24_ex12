@@ -51,7 +51,7 @@ namespace co {
     std::ofstream ofs(filename);
     //check if requested state exists
     if(i < 0 || i >= _states[0].rows())
-      throw(logic_error("State outside range is requested."));
+      throw(ex::logic_error("State outside range is requested."));
     for (size_t k=0; k<_states.size(); ++k)
       ofs << _states[k](i) << ' ' << objective_t::f(_states[k],_parameters) << std::endl;
   }
@@ -61,7 +61,7 @@ namespace co {
     std::ofstream ofs(filename);
     //check if requested states exist
     if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
-      throw(logic_error("State outside range is requested."));
+      throw(ex::logic_error("State outside range is requested."));
     for (size_t k=0; k<_states.size(); ++k) 
       ofs << _states[k](i) << ' ' << _states[k](j) << ' ' << objective_t::f(_states[k],_parameters) << std::endl;
   }

@@ -3,7 +3,6 @@
 
 #include "Eigen/Dense"
 #include "exceptions/math_error.hpp"
-#include <string>
 
 namespace la {
 
@@ -18,13 +17,13 @@ namespace la {
     static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) {
       //matrix have to be square
       if(A.cols() != A.rows())
-        throw(math_error("Matrix is not square, LU decomposition is not applicable"));
+        throw(ex::math_error("Matrix is not square, LU decomposition is not applicable"));
       //matrix and vector must have equal number of rows
       if(A.rows() != b.rows())
-        throw(math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+        throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
       //matrix have to be invertible 
       if(A.determinant() == 0)
-	throw(math_error("Matrix is singular, applying LU algorithm for solving a linear system is not possible."));
+	throw(ex::math_error("Matrix is singular, applying LU algorithm for solving a linear system is not possible."));
 
       return A.lu().solve(b);
     }
@@ -35,17 +34,16 @@ namespace la {
     static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) {
       //matrix have to be squared
       if(A.cols() != A.rows())
-        throw(math_error("Matrix is not square, LLT decomposition is not applicable"));
+        throw(ex::math_error("Matrix is not square, LLT decomposition is not applicable"));
       //matrix and vector must have equak number of rows
       if(A.rows() != b.rows())
-        throw(math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+        throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
       //matrix have to be invertible
       if(A.determinant() == 0)
-        throw(math_error("Matrix is singular, applying LLT algorithm for solving a linear system is not possible."));
+        throw(ex::math_error("Matrix is singular, applying LLT algorithm for solving a linear system is not possible."));
       //matrix have to be symmetric positive definite
-      Eigen::LDLT<la::matrix_t<T>> ldlt(A);
       if(A.llt().info())
-	throw(math_error("Matrix is not symmetric positiv definite, LLT decomposition is not applicable."));
+	throw(ex::math_error("Matrix is not symmetric positiv definite, LLT decomposition is not applicable."));
 
       return A.llt().solve(b);
     }

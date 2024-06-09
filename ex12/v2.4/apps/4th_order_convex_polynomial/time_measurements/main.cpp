@@ -30,7 +30,7 @@ int main() {
     for(int i=0; n_start+i*n_step<=n_stop; i++)
       out<<n_start+i*n_step<<' '<<time_measurements[i]<<std::endl;
   }
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

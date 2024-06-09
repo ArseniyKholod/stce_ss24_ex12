@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     cout << derivative_t::ddfdxx<co::objective_t>(x,p).lu()
             .solve(-derivative_t::ddfdxp<co::objective_t>(x,p)) << endl;
   }}
-  catch(cppNum_exception & e){
+  catch(ex::cppNum_exception & e){
     std::cerr<<e.what()<<std::endl;
   }
   catch(...){

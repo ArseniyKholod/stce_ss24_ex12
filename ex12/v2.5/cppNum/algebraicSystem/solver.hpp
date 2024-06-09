@@ -21,6 +21,7 @@ namespace as {
 }
 
 #include <fstream>
+#include "cppNum/exceptions/logic_error.hpp"
 
 namespace as {
 
@@ -30,6 +31,9 @@ namespace as {
   template<typename T, typename SYSTEM_T, typename DATA_T>
   void solver_t<T,SYSTEM_T,DATA_T>::plot(const std::string& filename, int i) const {
     std::ofstream ofs(filename);
+    //check if requested state exists
+    if(i < 0 || i >= _states[0].rows())
+      throw(ex::logic_error("State outside range is requested."));
     for (const auto& state : _states)
       ofs << state(i) << " 0\n" << state(i) << ' ' 
           << SYSTEM_T::F(state,_parameters,_data_p)(i)
@@ -40,6 +44,9 @@ namespace as {
   template<typename T, typename SYSTEM_T, typename DATA_T>
   void solver_t<T,SYSTEM_T,DATA_T>::plot(const std::string& filename, int i, int j) const {
     std::ofstream ofs(filename);
+    //check if requested states exist
+    if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
+      throw(ex::logic_error("State outside range is requested."));
     for (const auto& state : _states)
       ofs << state(i) << ' ' << state(j) << " 0\n" 
           << state(i) << ' ' << state(j) << ' ' 
