@@ -11,6 +11,7 @@ all:
 	cd v2.3 && make
 	cd v2.4 && make
 	cd v2.5 && make
+	cd ex12 && make
 test:
 	cd v1.1 && make test
 	cd v1.2 && make test
@@ -22,6 +23,7 @@ test:
 	cd v2.3 && make test
 	cd v2.4 && make test
 	cd v2.5 && make test
+	cd ex12 && make test
 clean:
 	cd v1.1 && make clean
 	cd v1.2 && make clean
@@ -33,5 +35,6 @@ clean:
 	cd v2.3 && make clean
 	cd v2.4 && make clean
 	cd v2.5 && make clean
+	cd ex12 && make clean
 
 .PHONY: all test clean

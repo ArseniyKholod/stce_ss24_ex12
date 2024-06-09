@@ -12,10 +12,3 @@ main.o: $(BASE_DIR)/cppNum/derivative.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/cppNum_exception.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/logic_error.hpp
 main.o: $(BASE_DIR)/cppNum/exceptions/math_error.hpp
-
-make plot: 
-	cd ../../../../../v2.4/apps/cosh/time_measurements && make 
-	cd ../../../../../v2.4/apps/cosh/time_measurements && ./main.exe
-	make
-	./main.exe
-	gnuplot run.gnuplot

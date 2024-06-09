@@ -1,5 +1,5 @@
 // info@stce.rwth-aachen.de
-#include "apps/cosh/cosh.hpp"
+#include "apps/4th_order_convex_polynomial/4th_order_convex_polynomial.hpp"
 #include "cppNum/convexObjective/newton.hpp"
 #include "cppNum/linearAlgebra.hpp"
 #include "cppNum/derivative.hpp"
@@ -12,15 +12,14 @@
 int main() {
   try{
     using T=double;
-    using solver=la::lu_solver_t<T>;
     using namespace std;
-    int n_start=1, n_stop=101, n_step=4;
+    int n_start=1, n_stop=81, n_step=4;
     std::vector<T> time_measurements;
     for(int n=n_start; n<=n_stop; n+=n_step){
       int np=n, nx=np; 
       la::vector_t<T> p=2*la::vector_t<T>::Ones(np); 
       la::vector_t<T> x=-4*la::vector_t<T>::Ones(nx); 
-      co::newton_minimizer_t<T,solver> minimizer(1e-7);
+      co::newton_minimizer_t<T> minimizer(1e-7);
       auto start = std::chrono::high_resolution_clock::now();
       for(int i=0; i<5; i++)
         minimizer.run(x,p);
