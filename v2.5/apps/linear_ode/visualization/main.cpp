@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
   la::vector_t<T> p=la::vector_t<T>::Zero(np), x=la::vector_t<T>::Ones(nx);
   for(int i=2; i<nx; i++) p(i*nx+i)=-1-double(i)/nx;
   p(0)=-1.; p(1)=-1.; p(nx)=1.; p(nx+1)=-1.;
-  ds::implicitEuler_integrator_t<T> integrator(4.,1000,1e-10, true);
+  ds::implicitEuler_integrator_t<T> integrator(4.,100,1e-10, true);
   x=integrator.run(x,p);
   integrator.plot("steps.plt", 0);
   cout << "x=" << x.transpose() << endl;
