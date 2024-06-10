@@ -20,10 +20,10 @@ main_difference.o : main_difference.cpp
 	$(CPPC) -c $(INC) $(THIRDPARTY_INC) $< -o$@
 
 make plot: 
-	cd ../../../../../v2.4/apps/4th_order_convex_polynomial/time_measurements && make 
-	cd ../../../../../v2.4/apps/4th_order_convex_polynomial/time_measurements && ./main.exe
 	make
 	./main.exe
+	cd ../../../../../v2.4/apps/4th_order_convex_polynomial/time_measurements && make 
+	cd ../../../../../v2.4/apps/4th_order_convex_polynomial/time_measurements && ./main.exe
 	make main_difference.exe
 	./main_difference.exe
 	gnuplot run.gnuplot

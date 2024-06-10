@@ -21,10 +21,10 @@ main_difference.o : main_difference.cpp
 	$(CPPC) -c $(INC) $(THIRDPARTY_INC) $< -o$@
 
 make plot:
-	cd ../../../../../v2.5/apps/linear_ode/time_measurements && make
-	cd ../../../../../v2.5/apps/linear_ode/time_measurements && ./main.exe
 	make
 	./main.exe
+	cd ../../../../../v2.5/apps/linear_ode/time_measurements && make
+	cd ../../../../../v2.5/apps/linear_ode/time_measurements && ./main.exe
 	make main_difference.exe
 	./main_difference.exe
 	gnuplot run.gnuplot
