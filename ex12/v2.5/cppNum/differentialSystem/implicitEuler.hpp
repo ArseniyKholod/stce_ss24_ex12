@@ -45,20 +45,31 @@ namespace ds {
 
   template<typename T>
   la::vector_t<T> implicitEuler_integrator_t<T>::run(la::vector_t<T> x, const la::vector_t<T> &p) {
-    int n=x.size(), m=p.size(), as_m=n+m+2;
-    la::vector_t<T> as_p(as_m), x_prev=x;
-    T t=0, dt=_t_end/_number_of_steps;
-    if (_trace) { _states.push_back(x); _times.push_back(t); }
-    struct data_t { la::vector_t<T> x_prev; T dt; } data;
-    as::newton_solver_t<T,implicitEuler_integrator_t<T>,data_t> as_solver(_accuracy,&data);
-    data.dt=dt;
-    do {
-      t+=dt;
-      data.x_prev=x;
-      x=as_solver.run(x,p);
+    la::vector_t<T> x_initial(x);
+    try{	  
+      int n=x.size(), m=p.size(), as_m=n+m+2;
+      la::vector_t<T> as_p(as_m), x_prev=x;
+      T t=0, dt=_t_end/_number_of_steps;
       if (_trace) { _states.push_back(x); _times.push_back(t); }
-    } while (t<_t_end);
-    return x;
+      struct data_t { la::vector_t<T> x_prev; T dt; } data;
+      as::newton_solver_t<T,implicitEuler_integrator_t<T>,data_t> as_solver(_accuracy,&data);
+      data.dt=dt;
+      do {
+        t+=dt;
+        data.x_prev=x;
+        x=as_solver.run(x,p);
+        if (_trace) { _states.push_back(x); _times.push_back(t); }
+      } while (t<_t_end);
+      return x;
+    }
+    catch(const std::exception & e){
+      std::cerr<<"std:exception was caught in ds::implicitEuler_integrator_t::run with following message:"<<std::endl<<e.what()<<std::endl;
+    }
+    catch(...){
+      std::cerr<<"Exception of unknown type was caught in ds::implicitEuler_integrator_t::run."<<std::endl;
+    }
+    std::cerr<<"ds::implicitEuler_integrator_t::run returns an initial value of x. Check the correctness of the input."<<std::endl;
+    return x_initial;
   }
 
 }
