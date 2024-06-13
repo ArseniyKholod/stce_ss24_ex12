@@ -28,6 +28,7 @@ namespace ds {
 #include <iostream>
 #include <cmath>
 #include <limits>
+#include <exception>
 
 namespace ds {
 

@@ -22,6 +22,8 @@ namespace as {
 }
 
 #include "cppNum/derivative.hpp"
+#include <exception>
+#include <iostream>
 
 namespace as {
   template<typename T, typename SYSTEM_T, typename DATA_T, typename LINEAR_SOLVER_T>
