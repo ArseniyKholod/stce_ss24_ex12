@@ -44,10 +44,10 @@ namespace as {
       ofs.close();
     }
     catch(const std::exception & e){
-      std::cerr<<"std:exception was caught in solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
+      std::cerr<<"std:exception was caught in as::solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
     }
     catch(...){
-      std::cerr<<"Exception of unknown type was caught in solver_t::plot."<<std::endl;
+      std::cerr<<"Exception of unknown type was caught in as::solver_t::plot."<<std::endl;
     }
   }
 
@@ -66,10 +66,10 @@ namespace as {
       ofs.close();
     }
     catch(const std::exception & e){
-      std::cerr<<"std:exception was caught in solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
+      std::cerr<<"std:exception was caught in as::solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
     }
     catch(...){
-      std::cerr<<"Exception of unknown type was caught in solver_t::plot."<<std::endl;
+      std::cerr<<"Exception of unknown type was caught in as::solver_t::plot."<<std::endl;
     }
   }
 

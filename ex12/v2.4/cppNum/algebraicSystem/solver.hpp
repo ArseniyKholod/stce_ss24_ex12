@@ -21,6 +21,8 @@ namespace as {
 
 #include <fstream>
 #include "cppNum/exceptions/logic_error.hpp"
+#include <iostream>
+#include <exception>
 
 namespace as {
 
@@ -29,29 +31,45 @@ namespace as {
   
   template<typename T, typename SYSTEM_T>
   void solver_t<T,SYSTEM_T>::plot(const std::string& filename, int i) const {
-    std::ofstream ofs(filename);
-    //check if requested state exists
-    if(i < 0 || i >= _states[0].rows())
-      throw(ex::logic_error("State outside range is requested."));
-    for (const auto& state : _states)
-      ofs << state(i) << " 0\n" << state(i) << ' ' 
-          << SYSTEM_T::F(state,_parameters)(i)
-	  << std::endl;
-    ofs.close();
+    try{
+      std::ofstream ofs(filename);
+      //check if requested state exists
+      if(i < 0 || i >= _states[0].rows())
+        throw(ex::logic_error("State outside range is requested."));
+      for (const auto& state : _states)
+        ofs << state(i) << " 0\n" << state(i) << ' ' 
+            << SYSTEM_T::F(state,_parameters)(i)
+	    << std::endl;
+      ofs.close();
+    }
+    catch(const std::exception & e){
+      std::cerr<<"std:exception was caught in as::solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
+    }
+    catch(...){
+      std::cerr<<"Exception of unknown type was caught in as::solver_t::plot."<<std::endl;
+    }
   }
 
   template<typename T, typename SYSTEM_T>
   void solver_t<T,SYSTEM_T>::plot(const std::string& filename, int i, int j) const {
-    std::ofstream ofs(filename);
-    //check if requested states exist
-    if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
-      throw(ex::logic_error("State outside range is requested."));
-    for (const auto& state : _states)
-      ofs << state(i) << ' ' << state(j) << " 0\n" 
-          << state(i) << ' ' << state(j) << ' ' 
-          << SYSTEM_T::F(state,_parameters).norm()
-	  << std::endl;
-    ofs.close();
+    try{	  
+      std::ofstream ofs(filename);
+      //check if requested states exist
+      if(i < 0 || i >= _states[0].rows() || j < 0 || j >= _states[0].rows())
+        throw(ex::logic_error("State outside range is requested."));
+      for (const auto& state : _states)
+        ofs << state(i) << ' ' << state(j) << " 0\n" 
+            << state(i) << ' ' << state(j) << ' ' 
+            << SYSTEM_T::F(state,_parameters).norm()
+	    << std::endl;
+      ofs.close();
+    }
+    catch(const std::exception & e){
+      std::cerr<<"std:exception was caught in as::solver_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
+    }
+    catch(...){
+      std::cerr<<"Exception of unknown type was caught in as::solver_t::plot."<<std::endl;
+    }
   }
 
 }

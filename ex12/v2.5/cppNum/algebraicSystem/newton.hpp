@@ -2,7 +2,6 @@
 #pragma once
 
 #include "system.hpp"
-#include "cppNum/algebraicSystem/solver.hpp"
 #include "solver.hpp"
 
 namespace as {
@@ -22,7 +21,6 @@ namespace as {
 }
 
 #include "cppNum/derivative.hpp"
-#include <exception>
 #include <iostream>
 
 namespace as {

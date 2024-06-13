@@ -8,7 +8,7 @@
 
 int main() {
   using T=double; using namespace std;
-  int n_start=2, n_end=102, n_step=4, nx, np;
+  int n_start=10, n_end=50, n_step=4, nx, np;
   std::ofstream out("time.plt");
   for(int i=0; n_start+n_step*i<=n_end; i++){
     nx=n_start+n_step*i;
