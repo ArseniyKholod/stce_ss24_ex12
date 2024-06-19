@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.6.13)  19 JUN 2024 14:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.6.13)  19 JUN 2024 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1187,23 +1187,21 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [23
 
  <./figures/class_hierarchy_doc.png>]
-<figures/ex::cppNum_exception_doc.png, id=740, 446.66875pt x 471.7625pt>
-File: figures/ex::cppNum_exception_doc.png Graphic file (type png)
-<use figures/ex::cppNum_exception_doc.png>
-Package pdftex.def Info: figures/ex::cppNum_exception_doc.png  used on input li
-ne 533.
+<figures/cppNum_exception_doc.png, id=740, 446.66875pt x 471.7625pt>
+File: figures/cppNum_exception_doc.png Graphic file (type png)
+<use figures/cppNum_exception_doc.png>
+Package pdftex.def Info: figures/cppNum_exception_doc.png  used on input line 5
+33.
 (pdftex.def)             Requested size: 116.5161pt x 123.05847pt.
-<figures/ex::math_error_doc.png, id=741, 390.45876pt x 712.6625pt>
-File: figures/ex::math_error_doc.png Graphic file (type png)
-<use figures/ex::math_error_doc.png>
-Package pdftex.def Info: figures/ex::math_error_doc.png  used on input line 533
-.
+<figures/math_error_doc.png, id=741, 390.45876pt x 712.6625pt>
+File: figures/math_error_doc.png Graphic file (type png)
+<use figures/math_error_doc.png>
+Package pdftex.def Info: figures/math_error_doc.png  used on input line 533.
 (pdftex.def)             Requested size: 99.87021pt x 182.27568pt.
-<figures/ex::logic_error_doc.png, id=742, 362.35374pt x 704.6325pt>
-File: figures/ex::logic_error_doc.png Graphic file (type png)
-<use figures/ex::logic_error_doc.png>
-Package pdftex.def Info: figures/ex::logic_error_doc.png  used on input line 53
-3.
+<figures/logic_error_doc.png, id=742, 362.35374pt x 704.6325pt>
+File: figures/logic_error_doc.png Graphic file (type png)
+<use figures/logic_error_doc.png>
+Package pdftex.def Info: figures/logic_error_doc.png  used on input line 533.
 (pdftex.def)             Requested size: 93.21085pt x 181.25404pt.
 
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
@@ -1212,8 +1210,8 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 
 [24
 
- <./figures/ex::cppNum_exception_doc.png> <./figures/ex::math_error_doc.png> <.
-/figures/ex::logic_error_doc.png>]
+ <./figures/cppNum_exception_doc.png> <./figures/math_error_doc.png> <./figures
+/logic_error_doc.png>]
 <figures/2.4_4th_order_convex_polynomial.png, id=768, 1003.75pt x 501.875pt>
 File: figures/2.4_4th_order_convex_polynomial.png Graphic file (type png)
 <use figures/2.4_4th_order_convex_polynomial.png>
@@ -1346,7 +1344,7 @@ Package rerunfilecheck Info: File `slides.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  24880 strings out of 480247
- 464726 string characters out of 5896151
+ 464642 string characters out of 5896151
  1164476 words of memory out of 5000000
  42207 multiletter control sequences out of 15000+600000
  480084 words of font info for 67 fonts, out of 8000000 for 9000
