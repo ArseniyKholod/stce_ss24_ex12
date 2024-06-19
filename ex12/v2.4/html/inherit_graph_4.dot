@@ -1,0 +1,20 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="iteration_t\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classiteration__t.html",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="approximation_t\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classapproximation__t.html",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="as::solver_t\< T, system_t \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classas_1_1solver__t.html",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="as::newton_solver_t\l\< T, SYSTEM_T, LINEAR\l_SOLVER_T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classas_1_1newton__solver__t.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="as::solver_t\< T, SYSTEM_T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classas_1_1solver__t.html",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="co::minimizer_t\< T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classco_1_1minimizer__t.html",tooltip=" "];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="co::newton_minimizer\l_t\< T, LINEAR_SOLVER_T \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classco_1_1newton__minimizer__t.html",tooltip=" "];
+}

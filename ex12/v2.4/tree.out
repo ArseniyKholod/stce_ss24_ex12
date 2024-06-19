@@ -1,0 +1,75 @@
+cppNum
+├── algebraicSystem
+│   ├── newton.hpp
+│   ├── solver.hpp
+│   └── system.hpp
+├── approximation.hpp
+├── convexObjective
+│   ├── minimizer.hpp
+│   ├── newton.hpp
+│   └── objective.hpp
+├── derivative.hpp
+├── exceptions
+│   ├── cppNum_exception.hpp
+│   ├── logic_error.hpp
+│   └── math_error.hpp
+├── iteration.hpp
+└── linearAlgebra.hpp
+apps
+├── 4th_order_convex_polynomial
+│   ├── 4th_order_convex_polynomial.hpp
+│   ├── ad
+│   │   ├── main.cpp
+│   │   └── Makefile
+│   ├── main.cpp
+│   ├── Makefile
+│   ├── time_measurements
+│   │   ├── 4th_order_convex_polynomial.png
+│   │   ├── main.cpp
+│   │   ├── main_difference.cpp
+│   │   ├── Makefile
+│   │   └── run.gnuplot
+│   └── visualization
+│       ├── main.cpp
+│       ├── Makefile
+│       └── run.gnuplot
+├── cosh
+│   ├── ad
+│   │   ├── main.cpp
+│   │   └── Makefile
+│   ├── cosh.hpp
+│   ├── main.cpp
+│   ├── Makefile
+│   ├── time_measurements
+│   │   ├── cosh.png
+│   │   ├── main.cpp
+│   │   ├── main_difference.cpp
+│   │   ├── Makefile
+│   │   └── run.gnuplot
+│   └── visualization
+│       ├── main.cpp
+│       ├── Makefile
+│       └── run.gnuplot
+├── generate_exceptions
+│   ├── f.hpp
+│   ├── main.cpp
+│   └── Makefile
+├── Makefile
+├── Makefile.inc
+└── sphere
+    ├── ad
+    │   ├── main.cpp
+    │   ├── Makefile
+    │   └── refOutput
+    │       └── ref.out
+    ├── main.cpp
+    ├── Makefile
+    ├── refOutput
+    │   └── ref.out
+    ├── sphere.hpp
+    └── visualization
+        ├── main.cpp
+        ├── Makefile
+        └── run.gnuplot
+
+14 directories, 41 files

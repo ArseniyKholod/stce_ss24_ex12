@@ -28,8 +28,8 @@ void evolution_t<T>::plot(const std::string& filename, int i) const {
     std::ofstream ofs(filename);
     assert(_states.size()==_times.size());
     //check if requested state exists
-      if(i < 0 || i >= _states[0].rows())
-        throw(ex::logic_error("State outside range is requested."));
+    if(i < 0 || i >= _states[0].rows())
+      throw(ex::logic_error("State outside range is requested."));
     for (size_t k=0; k<_times.size(); ++k)
       ofs << _times[k] << ' ' << _states[k](i) << std::endl;
   }

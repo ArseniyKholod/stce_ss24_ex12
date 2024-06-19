@@ -205,8 +205,8 @@
 			cppNum \textbf{v2.4} \newline
 			  \indent exceptions \newline
 		    	    \indent \indent cppNum\_exception.hpp \newline
-		   	    \indent \indent math\_error \newline
-		    	    \indent \indent logic\_error \newline
+		   	    \indent \indent math\_error.hpp \newline
+		    	    \indent \indent logic\_error.hpp \newline
 		  	  \indent convexObjective \newline
 		    	    \indent \indent objective.hpp \newline
 		    	    \indent \indent newton.hpp \newline
@@ -225,8 +225,8 @@
                 	cppNum \textbf{v2.5} \newline
                   	  \indent exceptions \newline
                    	    \indent \indent cppNum\_exception.hpp \newline
-               		    \indent \indent math\_error \newline
-                	    \indent \indent logic\_error \newline
+               		    \indent \indent math\_error.hpp \newline
+                	    \indent \indent logic\_error.hpp \newline
                 	  \indent differentialSystem \newline
                		    \indent \indent system.hpp \newline
                  	    \indent \indent integrator.hpp \newline
@@ -244,6 +244,293 @@
 	\end{columns}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/exceptions/cppNum\_exception.hpp v2.4 and v2.5 }
+	\begin{lstlisting}
+	#pragma once
+	#include <exception>
+	namespace ex{
+  	  /// Abstract basic class for all cppNum exceptions
+  	  class cppNum_exception: public std::exception{
+    	    public:
+    	      virtual const char* what() const noexcept =0;
+  	  };
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/exceptions/math\_error.hpp v2.4 and v2.5 }
+	\begin{lstlisting}
+        #pragma once
+        #include "cppNum_exception.hpp"
+        #include <string>
+        namespace ex{
+          /// An exception class to handle mathematical errors
+          class math_error: public cppNum_exception {
+            protected:
+              /// Error message
+              const char* what_arg;
+            public:
+              /// Constructor to initialize error message
+              math_error(const char*);
+              /// Copy constructor
+              math_error(const math_error&);
+              /// Returns explanatory string
+              virtual const char* what() const noexcept{
+                return what_arg;
+              }
+          };
+
+          math_error::math_error(const char* what_arg) : what_arg(what_arg){}
+          math_error::math_error(const math_error& err){
+            what_arg = err.what_arg;
+          }
+        }
+        \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/exceptions/logic\_error.hpp v2.4 and v2.5 }
+	\begin{lstlisting}
+	#pragma once
+	#include "cppNum_exception.hpp"
+	#include <string>
+	
+	namespace ex{
+	  /// An exception class to handle logical errors
+	  class logic_error: public cppNum_exception {
+	    protected:
+	      /// Error message
+	      const char* what_arg;
+	    public:
+	      /// Constructor to initialize error message
+	      logic_error(const char*);
+	      /// Copy constructor
+	      logic_error(const logic_error&);
+	      /// Returns explanatory string
+	      virtual const char* what() const noexcept{
+	        return what_arg;
+	      }
+	  };
+		
+	  logic_error::logic_error(const char* what_arg) : what_arg(what_arg){}
+	  logic_error::logic_error(const logic_error& err){
+	    what_arg = err.what_arg;
+	  }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/linearAlgebra.hpp v2.4 and v2.5, LU }
+	\begin{lstlisting}
+	...
+	template<typename T>
+	struct lu_solver_t {
+	  static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) {
+	    try{
+	      //matrix have to be square
+	      if(A.cols() != A.rows())
+	        throw(ex::math_error("Matrix is not square, LU decomposition is not applicable"));
+	      //matrix and vector must have equal number of rows
+	      if(A.rows() != b.rows())
+	        throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+	      //matrix have to be invertible
+	      if(A.determinant() == 0)
+	        throw(ex::math_error("Matrix is singular, applying LU algorithm for solving a linear system is not possible."));
+	      return A.lu().solve(b);
+	    }
+	    catch(...){
+	      std::cerr<<"Exception was caught in la::lu_solver_t::run, throw it further."<<std::endl;
+	      throw;
+	    }
+	  }
+  	};
+	...
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/linearAlgebra.hpp v2.4 and v2.5, LLT }
+	\begin{lstlisting}
+	  ...
+	  template<typename T>
+	  struct llt_solver_t {
+	    static la::vector_t<T> run(const la::matrix_t<T>& A, const la::vector_t<T>& b) {
+	      try{
+	        //matrix have to be squared
+	        if(A.cols() != A.rows())
+	          throw(ex::math_error("Matrix is not square, LLT decomposition is not applicable"));
+	        //matrix and vector must have equak number of rows
+	        if(A.rows() != b.rows())
+	          throw(ex::math_error("Matrix and rhs-vector have diffirent number of rows, linear system is not uniquely solvable"));
+	        //matrix have to be invertible
+	        if(A.determinant() == 0)
+	          throw(ex::math_error("Matrix is singular, applying LLT algorithm for solving a linear system is not possible."));
+	        //matrix have to be symmetric positive definite
+	        if(A.llt().info())
+	          throw(ex::math_error("Matrix is not symmetric positiv definite, LLT decomposition is not applicable."));
+	        return A.llt().solve(b);
+	      }
+	      catch(...){
+	        std::cerr<<"Exception was caught in la::llt_solver_t::run, throw it further."<<std::endl;
+	        throw;
+	      }
+	    }
+  	  };
+	  ...
+        \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/derivative.hpp v2.4 and v2.5 }
+	Content of each function in cppNum/derivative.hpp was wrapped in try and followed by catch. E.g. for dFdx,for all other functions exactly in the same way.
+        \begin{lstlisting}
+	...
+	static la::matrix_t<T> dFdx(const la::vector_t<T>& x_v, const la::vector_t<T>& p_v) {
+	  try{...
+	  }
+	  catch(...){
+	    std::cerr<<"Exception was caught in derivative_t::dFdx, throw it further."<<std::endl;
+	    throw;
+	  }
+	}
+	...
+        \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/algebraicSystem/newton.hpp v2.4 and v2.5 }
+	\begin{lstlisting}
+        ...
+  	  template<typename T, typename SYSTEM_T, typename LINEAR_SOLVER_T>
+	  la::vector_t<T> newton_solver_t<T,SYSTEM_T,LINEAR_SOLVER_T>::run(la::vector_t<T> x, const la::vector_t<T> &p) {
+	    try{...
+	    }
+	    catch(...){
+	      std::cerr<<"Exception was caught in as::newton_solver_t::run, throw it further."<<std::endl;
+	      throw;
+	    }
+	  }
+	...
+        \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/convexObjective/newton.hpp v2.4 }
+	\begin{lstlisting}[basicstyle=\tiny\sffamily]
+	  ...
+	  la::vector_t<AS_T> newton_minimizer_t<T,LINEAR_SOLVER_T>::F(const la::vector_t<AS_T> &x, const la::vector_t<AS_T>& p) {
+	    try{
+	      return derivative_t::dfdx<objective_t,AS_T>(x,p);
+	    }
+	    catch(...){
+	      std::cerr<<"Exception was caught in co::newton_minimizer_t::F, throw it further."<<std::endl;
+	      throw;
+	    }
+  	  }
+	  ...
+	  la::vector_t<T> newton_minimizer_t<T,LINEAR_SOLVER_T>::run(la::vector_t<T> x, const la::vector_t<T> &p) {
+	    la::vector_t<T> x_initial(x);
+	    try{
+	      ...	
+	      return x;
+	    }
+	    catch(const std::exception & e){
+	      std::cerr<<"std:exception was caught in co::newton_minimizer_t::run with following message:"<<std::endl<<e.what()<<std::endl;
+	    }
+	    catch(...){
+	      std::cerr<<"Exception of unknown type was caught in co::newton_minimizer_t::run."<<std::endl;
+	    }
+	    std::cerr<<"co::newton_minimizer_t::run returns an initial value of x. Check the correctness of the input."<<std::endl;
+	    return x_initial;
+
+	  }
+	...
+        \end{lstlisting}
+	The highest level function in v2.4 is co::newton\_minimizer\_t::run, it does not rethrow an error, it prints the message and returns an initial value to user.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} cppNum/differentialSystem/implicitEuler.hpp v2.5 }
+        \begin{lstlisting}
+        ...
+	  template<typename T>
+	  la::vector_t<T> implicitEuler_integrator_t<T>::run(la::vector_t<T> x, const la::vector_t<T> &p) {
+	    la::vector_t<T> x_initial(x);
+	    try{...
+	      return x;
+	    }
+	    catch(const std::exception & e){
+	      std::cerr<<"std:exception was caught in ds::implicitEuler_integrator_t::run with following message:"<<std::endl<<e.what()<<std::endl;
+	    }
+	    catch(...){
+	      std::cerr<<"Exception of unknown type was caught in ds::implicitEuler_integrator_t::run."<<std::endl;
+	    }
+	    std::cerr<<"ds::implicitEuler_integrator_t::run returns an initial value of x. Check the correctness of the input."<<std::endl;
+	    return x_initial;
+	  }
+	...
+        \end{lstlisting}
+        The highest level function in v2.5 is ds::implicitEuler\_integrator\_t::run, it does not rethrow an error, it prints the message and returns an initial value to user.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Source Code \\
+        \small \color{rwth-blue} Additional: plot functions v2.4 and v2.5 }
+	In all plot functions was checked, whether requested state exists. These functions were wrapped in try and followed by catch. E.g. for evolution\_t::plot from v2.5, all other plots in the same way.
+	\begin{lstlisting}
+	template<typename T>
+	void evolution_t<T>::plot(const std::string& filename, int i) const {
+	  try{
+	    std::ofstream ofs(filename);
+	    assert(_states.size()==_times.size());
+	    //check if requested state exists
+	    if(i < 0 || i >= _states[0].rows())
+	      throw(ex::logic_error("State outside range is requested."));
+	    for (size_t k=0; k<_times.size(); ++k)
+	      ofs << _times[k] << ' ' << _states[k](i) << std::endl;
+	  }
+	  catch(const std::exception & e){
+	    std::cerr<<"std:exception was caught in evolution_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
+	  }
+	  catch(...){
+	    std::cerr<<"Exception of unknown type was caught in evolution_t::plot."<<std::endl;
+	  }
+	}
+        \end{lstlisting}
+\end{frame}
+
+\subsection{Documentation}
+
+\begin{frame}
+\frametitle{Implementation \\
+        \small \color{rwth-blue} Documentation with Doxygen}
+	Example is for v2.4, analogically for v2.5.
+        \begin{figure}
+		\includegraphics[width=0.65\textwidth]{figures/class_hierarchy_doc.png}                
+        \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Implementation \\
+        \small \color{rwth-blue} Documentation with Doxygen}
+	\begin{figure}[b]
+		\includegraphics[width=0.35\textwidth]{figures/ex::cppNum_exception_doc.png}
+                \includegraphics[width=0.3\textwidth]{figures/ex::math_error_doc.png}
+                \includegraphics[width=0.28\textwidth]{figures/ex::logic_error_doc.png}
+        \end{figure}
+\end{frame}
 
 \subsection{Software Tests}
 
