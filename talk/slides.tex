@@ -19,20 +19,6 @@
 \tableofcontents
 \end{frame}
 
-\section{Preface}
-
-\begin{frame}
-\frametitle{Preface \\
-	\small \color{rwth-blue} Exception Handling}
-
-	\begin{itemize}
-		\item Software always has a working domain.
-		\item User of the software is not aware of all limitations.
-		\item Software developer helps user by introducing appropriate exception handling.
-		\item Our task is to introduce an exception handling to cppNum v2.4 and v2.5.
-	\end{itemize}
-\end{frame}
-
 \section{Analysis}
 
 \subsection{User Requirements}
@@ -46,8 +32,6 @@
 		\item Compare general behavior and run times with the exception handling-free version.
 	\end{itemize}
 \end{frame}
-
-\subsection{fisch}
 
 \begin{frame}
 \frametitle{Analysis \\
@@ -66,7 +50,7 @@
 	\begin{itemize}
 		\item \textbf{Exception Handling:}
 		\begin{itemize}
-			\item An exception is thrown, if the system is not able to produce the correct result
+			\item An exception is thrown, if unintended input is put into the system
 			\item An exception is thrown when the system behaves in an unintended way. 
                 \item An exception should be handled in such a way, as to prevent a potential crash of the system, if possible.
 			\item The system must integrate C++ exception handling mechanisms in cppNum versions v2.4 and v2.5.
@@ -101,7 +85,7 @@
 		\item \textbf{Performance:}
 		\begin{itemize}
 			\item The system must ensure that the overhead introduced by exception handling is minimized.
-			\item The system should not degrade the performance of cppNum versions v2.4 and v2.5 by more than 10%.
+			\item The system should not degrade the performance of cppNum versions v2.4 and v2.5.
 		\end{itemize}
 		\item \textbf{Reliability:}
 		\begin{itemize}
@@ -534,10 +518,123 @@
 
 \subsection{Software Tests}
 
+\begin{frame}[fragile]
+\frametitle{Implementation: Case Study \\
+	\small \color{rwth-blue} Function: 4th order convex polynomial}
+	The function is:
+	\[ f(x, p) = 0.5 \cdot (p(i) + x(i))^2 + 0.2 \cdot (x(i) - p(i))^4 \]
+	\begin{lstlisting}
+		#pragma once
+		#include "cppNum/convexObjective/objective.hpp"
+		#include <cassert>
+		#include <cmath>
+		
+		template<typename T> 
+		T co::objective_t::f(const la::vector_t<T> &x, const la::vector_t<T> &p) { 
+		using namespace std;
+		int n=x.size(); assert(n>=1); assert(p.size()==n);
+		T y=0;
+		for (int i=0;i<n;++i) y+=0.5*pow(p(i)+x(i),2) + 0.2*pow(x(i)-p(i),4);
+		return y;
+		}
+	\end{lstlisting}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Implementation: Case Study \\
+	\small \color{rwth-blue} Function: cosh}
+	The function is:
+	\[ f(x, p) = \cosh(x(i) + p(i)) \]
+	\begin{lstlisting}
+		#pragma once
+		#include "cppNum/convexObjective/objective.hpp"
+		#include <cassert>
+		#include <cmath>
+		
+		template<typename T> 
+		T co::objective_t::f(const la::vector_t<T> &x, const la::vector_t<T> &p) { 
+		using namespace std;
+		int n=x.size(); assert(n>=1); assert(p.size()==n);
+		T y=0;
+		for (int i=0;i<n;++i) y+=cosh(x(i)+p(i));
+		return y;
+		}
+	\end{lstlisting}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Implementation: Case Study \\
+	\small \color{rwth-blue} Function: fountain chain}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/fountain_chain.png}
+		\caption{Fountain Chain}
+	\end{figure}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Implementation: Case Study \\
+	\small \color{rwth-blue} Function: fountain chain}
+	The function is:
+	\[
+	r(0) = \frac{1}{p_2} \left( p_0 - p_3 \sqrt{2 p_1 x_0} \right)
+	\]
+	
+	\[
+	r(i) = \frac{1}{p_{2i+2}} \left( p_{2i+1} \sqrt{2 p_1 x_{i-1}} - p_{2i+3} \sqrt{2 p_1 x_i} \right), \quad i = 1, 2, \ldots, n-1
+	\]
+	\begin{lstlisting}
+		#pragma once
+		#include "cppNum/differentialSystem/system.hpp"
+		#include <cassert>
+		
+		template<typename T>
+		la::vector_t<T> ds::system_t::G(const la::vector_t<T> &x, const la::vector_t<T> &p) {
+		int n = x.size();
+		assert(p.size() == 2*n + 2);
+		assert(n >= 2);
+		la::vector_t<T> r(n);
+		r(0) = (1/p(2))*(p(0) - p(3)*sqrt(2*p(1)*x(0)));
+		for(int i = 1; i < n; i++) {
+			r(i) = (1/p(2*i + 2))*(p(2*i + 1)*sqrt(2*p(1)*x(i - 1)) - p(2*i + 3)*sqrt(2*p(1)*x(i)));
+		}
+		return r;
+	}
+	\end{lstlisting}
+\end{frame}
+		
+\begin{frame}[fragile]
+\frametitle{Implementation: Case Study \\
+	\small \color{rwth-blue} Function: linear ode}
+	The function is:
+	\[
+	\frac{d\mathbf{x}}{dt} = A \mathbf{x} + \mathbf{b}
+	\]
+	
+	\[
+	r_i = \sum_{j=0}^{n-1} A_{ij} x_j
+	\]
+	\begin{lstlisting}
+		#pragma once
+		#include "cppNum/differentialSystem/system.hpp"
+		#include <cassert>
+		
+		template<typename T>
+		la::vector_t<T> ds::system_t::G(const la::vector_t<T> &x, const la::vector_t<T> &p) {
+		int n=x.size();
+		assert(p.size()==n*n);
+		la::vector_t<T> r=la::vector_t<T>::Zero(n);
+		for(int i=0; i<n; i++)
+			for(int j=0; j<n; j++)
+			r(i)+=p(i*n+j)*x(j);
+		return r;
+		}
+	\end{lstlisting}
+\end{frame}
+	
 \begin{frame}
-\frametitle{Implementation \\
+\frametitle{Implementation: Run Time Difference \\
 	\small \color{rwth-blue} Software Tests 2.4: Convex Polynomial and Cosh Function}
-
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.65\textwidth]{figures/2.4_4th_order_convex_polynomial.png}
@@ -545,11 +642,10 @@
 		\includegraphics[width=0.65\textwidth]{figures/2.4_cosh.png}
 	\end{figure}
 \end{frame}
-
+	
 \begin{frame}
-\frametitle{Implementation \\
+\frametitle{Implementation: Run Time Difference \\
 	\small \color{rwth-blue} Software Tests 2.5: Fountain Chain and Linear ODE}
-
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.65\textwidth]{figures/2.5_fountain_chain.png}
@@ -557,47 +653,44 @@
 		\includegraphics[width=0.65\textwidth]{figures/2.5_linear_ode.png}
 	\end{figure}
 \end{frame}
-
+	
 \begin{frame}
-\frametitle{Implementation \\
+\frametitle{Implementation: Run Time Difference \\
 	\small \color{rwth-blue} Software Tests: Conclusion}
-
 	\begin{itemize}
-		\item Differences between the versions with and without exception handling:
+		\item Differences between the versions with and without exception handling under different problem sizes:
 		\begin{itemize}
-			\item The process of checking the matrix occurs before the program calculations begin, so the difference between the exception handling-free versions and the original program is most noticeable at the beginning.
-			\item Subsequently, most operations involve differentiation, integration and matrix calculations, etc., where there is essentially no difference between the two versions.
+			\item The difference is minimal because the resources used for exception handling in the program are very small and almost negligible. 
+			\item Most of the resources are utilized for calculating derivatives, performing differentiation, and iterative solving.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
-
-
+			
 \section{Project Management}
-
 \begin{frame}
 \frametitle{Project Management \\
 	\small \color{rwth-blue} Task}
 	\begin{itemize}	
-            \item \textbf{1.Self-study course:}
+			\item \textbf{1.Self-study course:}
 				\begin{itemize}
-					\item Read source code.
 					\item Discuss problems in group in Discord.
+					\item Read source code.
 				\end{itemize}
-			\item \textbf{Extend cppNum with exception handling:}
+			\item \textbf{2.Extend cppNum with exception handling:}
 				\begin{itemize}
 					\item Classification of Exceptions
-					\item Add exception classes as specified in the class diagram and in alignment with the standard exception library
-					\item Couple Exception Classes with Original Program
+					\item Create exception classes
+					\item Add exception classes with try-catch to source code
 				\end{itemize}
 			\item \textbf{3.Design scalable case studies:}
 				\begin{itemize}
 				\item Implent new cases
 				\item Add timing and plotting method
+				\item Visualization
 				\item Test and Debug
 				\end{itemize}
-			\item \textbf{4.Run time difference Analysis}
-			\item \textbf{5.Design scalable case studies:}
+			\item \textbf{4.Run time difference Analysis:}
+			\item \textbf{5.Presentation:}
 				\begin{itemize}
 				\item Analysis (user requirements , use case)
 				\item Source code and design
@@ -607,34 +700,32 @@
 			\item *The following page of the PDF outlines the responsibilities of each person.
 	\end{itemize}
 \end{frame}
-
+	
 \begin{frame}
 \frametitle{Project Management \\
-    \small \color{rwth-blue} Gantt Chart}
-    
-    \begin{center}
-        \includegraphics[width=\textwidth]{figures/project management.png}
-    \end{center}
+	\small \color{rwth-blue} Gantt Chart}
+	
+	\begin{center}
+		\includegraphics[width=\textwidth]{figures/project management.png}
+	\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Project Management \\
-    \small \color{rwth-blue} Task Assignment}
-    
-    \begin{flushleft}
-        \includegraphics[height=\textheight,keepaspectratio]{figures/project management.png}
-    \end{flushleft}
+	\small \color{rwth-blue} Task Assignment}
+	
+	\begin{flushleft}
+		\includegraphics[height=\textheight,keepaspectratio]{figures/project management.png}
+	\end{flushleft}
 \end{frame}
-
-
-
+	
 \section{Live Software Demo}
 
 \begin{frame}
 \frametitle{Live Software Demo \\
 	\small \color{rwth-blue} Run in Xubuntu}
 	\begin{itemize}	
-            \item \textbf{1.Make:}
+			\item \textbf{1.Make:}
 				\begin{itemize}
 				\item make depend
 				\item make
