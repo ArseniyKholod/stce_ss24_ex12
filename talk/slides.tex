@@ -150,6 +150,10 @@
 \begin{frame}
 \frametitle{Design \\
 	\small \color{rwth-blue} Class Model(s)}
+	\begin{figure}
+                \centering
+                \includegraphics[width=0.8\textwidth]{figures/class_diagramm.png}
+        \end{figure}
 \end{frame}
 
 
@@ -194,7 +198,50 @@
 
 \begin{frame}
 \frametitle{Implementation \\
-	\small \color{rwth-blue} Source Code}
+	\small \color{rwth-blue} Sutructure of source code}
+	\begin{columns}
+         	\begin{column}{0.5\textwidth}
+			\textbf{v2.4} \newline
+			cppNum \newline
+		  	  exceptions \newline
+		    	    cppNum_exception.hpp \newline
+		   	    math_error \newline
+		    	    logic_error \newline
+		  	  convexObjective \newline
+		    	    objective.hpp \newline
+		    	    newton.hpp \newline
+		    	    minimizer.hpp \newline
+		  	  algebraicSystem \newline
+		    	    system.hpp \newline
+		    	    solver.hpp \newline
+		    	    newton.hpp \newline
+		  	  linearAlgebra.hpp \newline
+		  	  iteration.hpp \newline
+		  	  derivative.hpp \newline
+		  	  approximation.hpp \newline
+		\end{column}
+		\begin{column}{0.5\textwidth}
+    			\textbf{v2.5} \newline
+                	cppNum \newline
+                  	  exceptions \newline
+                   	    cppNum_exception.hpp \newline
+               		    math_error \newline
+                	    logic_error \newline
+                	  differentialSystem \newline
+               		    system.hpp \newline
+                 	    integrator.hpp \newline
+                 	    implicitEuler.hpp \newline
+                 	  algebraicSystem \newline
+                 	    system.hpp \newline
+                 	    solver.hpp \newline
+                  	    newton.hpp \newline
+                 	  linearAlgebra.hpp \newline
+               	 	  iteration.hpp \newline
+                 	  derivative.hpp \newline
+                 	  approximation.hpp \newline
+		 	  evolution.hpp \newline
+     		\end{column}
+	\end{columns}
 \end{frame}
 
 
