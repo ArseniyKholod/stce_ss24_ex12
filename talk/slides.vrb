@@ -1,23 +1,33 @@
-\frametitle{Source Code \\
-        \small \color{rwth-blue} Additional: plot functions v2.4 and v2.5 }
-	In all plot functions was checked, whether requested state exists. These functions were wrapped in try and followed by catch. E.g. for evolution\_t::plot from v2.5, all other plots in the same way.
+\frametitle{Software Tests: Case Study for v2.5 \\
+	\small \color{rwth-blue} ODE: linear ode}
+	$\frac{d\mathbf{x}}{dt} = A \mathbf{x}$
+
 	\begin{lstlisting}
-	template<typename T>
-	void evolution_t<T>::plot(const std::string& filename, int i) const {
-	  try{
-	    std::ofstream ofs(filename);
-	    assert(_states.size()==_times.size());
-	    //check if requested state exists
-	    if(i < 0 || i >= _states[0].rows())
-	      throw(ex::logic_error("State outside range is requested."));
-	    for (size_t k=0; k<_times.size(); ++k)
-	      ofs << _times[k] << ' ' << _states[k](i) << std::endl;
-	  }
-	  catch(const std::exception & e){
-	    std::cerr<<"std:exception was caught in evolution_t::plot with following message:"<<std::endl<<e.what()<<std::endl;
-	  }
-	  catch(...){
-	    std::cerr<<"Exception of unknown type was caught in evolution_t::plot."<<std::endl;
-	  }
-	}
-        \end{lstlisting}
+		#pragma once
+		#include "cppNum/differentialSystem/system.hpp"
+		#include <cassert>
+		
+		template<typename T>
+		la::vector_t<T> ds::system_t::G(const la::vector_t<T> &x, const la::vector_t<T> &p) {
+		int n=x.size();
+		assert(p.size()==n*n);
+		la::vector_t<T> r=la::vector_t<T>::Zero(n);
+		for(int i=0; i<n; i++)
+			for(int j=0; j<n; j++)
+			r(i)+=p(i*n+j)*x(j);
+		return r;
+		}
+	\end{lstlisting}
+	 For time measurements:
+        \begin{itemize}
+                \item Start value of x: $[1, 1, ..., 1]$
+		\item Parameters p contain matrix $A=$
+		{\tiny
+		$\begin{bmatrix}
+			-1 & -1 & 0 & 0 &... & 0\\
+			1 & -1 & 0 & 0 &... & 0\\
+			0 & 0 & -1-2/n & 0 & ... & 0\\
+			... & ... & ... & ... & ... & ...\\
+			0 & 0 & 0 & ... & 0 & -1-(n-1)/n
+		\end{bmatrix}$}
+        \end{itemize}
