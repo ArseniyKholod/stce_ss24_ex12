@@ -1,15 +1,14 @@
 \frametitle{Live Demo v2.4 \\
 	\small \color{rwth-blue} Run in Xubuntu}
-	\begin{itemize}	
-			\item 1.Build executable: make
-			\item 2.Execute: ./main.exe
-	\end{itemize}
 	Use function: $y=\frac{1}{2}x_1^2+\frac{1}{2}x_2^2+x_1 x_2$ for minimization with Newton method (cppNum v2.4).
 
 	Hessian matrix: $\partial^2y=\begin{bmatrix}1&&1\\1&&1\end{bmatrix}$ is singular, so minimization with Newton method is not applicable.
-	\begin{center}
-		\large Show live demo
-	\end{center}
+	
+	\textbf{Show live demo}:
+	\begin{itemize}
+        	\item 1.Build executable: make
+        	\item 2.Execute: ./main.exe
+	\end{itemize}
 	Output of the live demo:
 	\begin{lstlisting}[language=bash]
 		Exception was caught in la::lu_solver_t::run, throw it further.

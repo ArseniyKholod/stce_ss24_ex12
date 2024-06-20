@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.6.13)  20 JUN 2024 10:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.6.13)  20 JUN 2024 13:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -973,6 +973,10 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [4
 
 ]
+Overfull \vbox (8.4544pt too high) detected at line 72
+ []
+
+
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [][]\OT1/cmss/m/n/5 , 
  []
@@ -987,6 +991,10 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [6
 
 ]
+Overfull \vbox (7.4544pt too high) detected at line 122
+ []
+
+
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [][]\OT1/cmss/m/n/5 , 
  []
@@ -1004,7 +1012,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 <figures/class_diagramm.png, id=325, 743.77875pt x 532.99126pt>
 File: figures/class_diagramm.png Graphic file (type png)
 <use figures/class_diagramm.png>
-Package pdftex.def Info: figures/class_diagramm.png  used on input line 141.
+Package pdftex.def Info: figures/class_diagramm.png  used on input line 153.
 (pdftex.def)             Requested size: 266.3189pt x 190.84384pt.
 
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
@@ -1021,7 +1029,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [10
 
 ]
-Overfull \vbox (14.79967pt too high) detected at line 229
+Overfull \vbox (14.79967pt too high) detected at line 240
  []
 
 
@@ -1036,24 +1044,24 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 
  (./slides.vrb
 LaTeX Font Info:    Trying to load font information for OML+cmss on input line 
-5.
-LaTeX Font Info:    No file OMLcmss.fd. on input line 5.
+6.
+LaTeX Font Info:    No file OMLcmss.fd. on input line 6.
 
 
 LaTeX Font Warning: Font shape `OML/cmss/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 5.
+(Font)              for symbol `textless' on input line 6.
 
 LaTeX Font Info:    Trying to load font information for OMS+cmss on input line 
-6.
-LaTeX Font Info:    No file OMScmss.fd. on input line 6.
+7.
+LaTeX Font Info:    No file OMScmss.fd. on input line 7.
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 6.
+(Font)              for symbol `textbraceleft' on input line 7.
 
 LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 
-10.
+11.
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmss.fd
 File: ts1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ))
@@ -1077,7 +1085,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (3.60443pt too high) detected at line 310
+Overfull \vbox (3.60443pt too high) detected at line 322
  []
 
 
@@ -1101,7 +1109,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (27.60443pt too high) detected at line 373
+Overfull \vbox (27.60443pt too high) detected at line 385
  []
 
 
@@ -1135,6 +1143,10 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
+Overfull \vbox (0.14885pt too high) detected at line 457
+ []
+
+
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [][]\OT1/cmss/m/n/5 , 
  []
@@ -1162,11 +1174,11 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [21
 
 ]
-<figures/class_hierarchy_doc.png, id=675, 789.95125pt x 601.24625pt>
+<figures/class_hierarchy_doc.png, id=677, 789.95125pt x 601.24625pt>
 File: figures/class_hierarchy_doc.png Graphic file (type png)
 <use figures/class_hierarchy_doc.png>
-Package pdftex.def Info: figures/class_hierarchy_doc.png  used on input line 50
-7.
+Package pdftex.def Info: figures/class_hierarchy_doc.png  used on input line 51
+9.
 (pdftex.def)             Requested size: 216.38124pt x 164.68726pt.
 
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
@@ -1176,21 +1188,21 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [22
 
  <./figures/class_hierarchy_doc.png>]
-<figures/cppNum_exception_doc.png, id=702, 446.66875pt x 471.7625pt>
+<figures/cppNum_exception_doc.png, id=704, 446.66875pt x 471.7625pt>
 File: figures/cppNum_exception_doc.png Graphic file (type png)
 <use figures/cppNum_exception_doc.png>
 Package pdftex.def Info: figures/cppNum_exception_doc.png  used on input line 5
-17.
+29.
 (pdftex.def)             Requested size: 116.5161pt x 123.05847pt.
-<figures/math_error_doc.png, id=703, 390.45876pt x 712.6625pt>
+<figures/math_error_doc.png, id=705, 390.45876pt x 712.6625pt>
 File: figures/math_error_doc.png Graphic file (type png)
 <use figures/math_error_doc.png>
-Package pdftex.def Info: figures/math_error_doc.png  used on input line 517.
+Package pdftex.def Info: figures/math_error_doc.png  used on input line 529.
 (pdftex.def)             Requested size: 99.87021pt x 182.27568pt.
-<figures/logic_error_doc.png, id=704, 362.35374pt x 704.6325pt>
+<figures/logic_error_doc.png, id=706, 362.35374pt x 704.6325pt>
 File: figures/logic_error_doc.png Graphic file (type png)
 <use figures/logic_error_doc.png>
-Package pdftex.def Info: figures/logic_error_doc.png  used on input line 517.
+Package pdftex.def Info: figures/logic_error_doc.png  used on input line 529.
 (pdftex.def)             Requested size: 93.21085pt x 181.25404pt.
 
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
@@ -1224,7 +1236,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 \openout4 = `slides.vrb'.
 
  (./slides.vrb
-<figures/fountain_chain.png, id=790, 805.50937pt x 278.54062pt>
+<figures/fountain_chain.png, id=792, 805.50937pt x 278.54062pt>
 File: figures/fountain_chain.png Graphic file (type png)
 <use figures/fountain_chain.png>
 Package pdftex.def Info: figures/fountain_chain.png  used on input line 6.
@@ -1240,7 +1252,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-Overfull \vbox (12.37947pt too high) detected at line 616
+Overfull \vbox (12.37947pt too high) detected at line 628
  []
 
 
@@ -1268,19 +1280,19 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [28
 
 ]
-<figures/2.4_4th_order_convex_polynomial.png, id=872, 1003.75pt x 501.875pt>
+<figures/2.4_4th_order_convex_polynomial.png, id=874, 1003.75pt x 501.875pt>
 File: figures/2.4_4th_order_convex_polynomial.png Graphic file (type png)
 <use figures/2.4_4th_order_convex_polynomial.png>
 Package pdftex.def Info: figures/2.4_4th_order_convex_polynomial.png  used on i
-nput line 663.
+nput line 675.
 (pdftex.def)             Requested size: 216.38124pt x 108.19202pt.
-<figures/2.4_cosh.png, id=873, 1003.75pt x 501.875pt>
+<figures/2.4_cosh.png, id=875, 1003.75pt x 501.875pt>
 File: figures/2.4_cosh.png Graphic file (type png)
 <use figures/2.4_cosh.png>
-Package pdftex.def Info: figures/2.4_cosh.png  used on input line 663.
+Package pdftex.def Info: figures/2.4_cosh.png  used on input line 675.
 (pdftex.def)             Requested size: 216.38124pt x 108.19202pt.
 
-Overfull \vbox (19.62434pt too high) detected at line 663
+Overfull \vbox (19.62434pt too high) detected at line 675
  []
 
 
@@ -1291,19 +1303,19 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [29
 
  <./figures/2.4_4th_order_convex_polynomial.png> <./figures/2.4_cosh.png>]
-<figures/2.5_fountain_chain.png, id=900, 1003.75pt x 501.875pt>
+<figures/2.5_fountain_chain.png, id=902, 1003.75pt x 501.875pt>
 File: figures/2.5_fountain_chain.png Graphic file (type png)
 <use figures/2.5_fountain_chain.png>
-Package pdftex.def Info: figures/2.5_fountain_chain.png  used on input line 674
+Package pdftex.def Info: figures/2.5_fountain_chain.png  used on input line 686
 .
 (pdftex.def)             Requested size: 216.38124pt x 108.19202pt.
-<figures/2.5_linear_ode.png, id=901, 1003.75pt x 501.875pt>
+<figures/2.5_linear_ode.png, id=903, 1003.75pt x 501.875pt>
 File: figures/2.5_linear_ode.png Graphic file (type png)
 <use figures/2.5_linear_ode.png>
-Package pdftex.def Info: figures/2.5_linear_ode.png  used on input line 674.
+Package pdftex.def Info: figures/2.5_linear_ode.png  used on input line 686.
 (pdftex.def)             Requested size: 216.38124pt x 108.19202pt.
 
-Overfull \vbox (17.87434pt too high) detected at line 674
+Overfull \vbox (17.87434pt too high) detected at line 686
  []
 
 
@@ -1315,10 +1327,10 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 
  <./figures/2.5_fountain_chain.png> <./figures/2.5_linear_ode.png>]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <9> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 687.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 699.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 687.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 699.
 
 
 Overfull \hbox (1.47571pt too wide) has occurred while \output is active
@@ -1328,7 +1340,7 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [31
 
 ]
-Overfull \vbox (8.89885pt too high) detected at line 722
+Overfull \vbox (8.89885pt too high) detected at line 734
  []
 
 
@@ -1339,10 +1351,10 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 [32
 
 ]
-<figures/project management.png, id=981, 1879.02pt x 664.4825pt>
+<figures/project management.png, id=983, 1879.02pt x 664.4825pt>
 File: figures/project management.png Graphic file (type png)
 <use figures/project management.png>
-Package pdftex.def Info: figures/project management.png  used on input line 731
+Package pdftex.def Info: figures/project management.png  used on input line 743
 .
 (pdftex.def)             Requested size: 332.89735pt x 117.71579pt.
 
@@ -1355,16 +1367,16 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
  <./figures/project management.png>]
 File: figures/project management.png Graphic file (type png)
 <use figures/project management.png>
-Package pdftex.def Info: figures/project management.png  used on input line 740
+Package pdftex.def Info: figures/project management.png  used on input line 752
 .
 (pdftex.def)             Requested size: 603.85046pt x 213.5456pt.
 
-Overfull \hbox (270.95311pt too wide) in paragraph at lines 740--740
+Overfull \hbox (270.95311pt too wide) in paragraph at lines 752--752
 []  
  []
 
 
-Overfull \vbox (19.25pt too high) detected at line 740
+Overfull \vbox (19.25pt too high) detected at line 752
  []
 
 
@@ -1412,16 +1424,16 @@ Overfull \hbox (1.47571pt too wide) has occurred while \output is active
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `slides.out' has not changed.
-(rerunfilecheck)             Checksum: 6BDEA3CA6954F4111D97D0C2550DBC4B;1552.
+(rerunfilecheck)             Checksum: A3554B7D7D61FEF9A3DFF2D0BEAA04E2;1531.
  ) 
 Here is how much of TeX's memory you used:
- 25111 strings out of 480247
- 467564 string characters out of 5896151
- 1181348 words of memory out of 5000000
- 42415 multiletter control sequences out of 15000+600000
- 480672 words of font info for 69 fonts, out of 8000000 for 9000
+ 25113 strings out of 480247
+ 467585 string characters out of 5896151
+ 1181340 words of memory out of 5000000
+ 42416 multiletter control sequences out of 15000+600000
+ 480840 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 128i,16n,122p,386b,1481s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 128i,16n,122p,525b,1489s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/stce/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcss0700.600p
 k></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/
@@ -1437,13 +1449,14 @@ ts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on slides.pdf (36 pages, 777882 bytes).
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on slides.pdf (36 pages, 792624 bytes).
 PDF statistics:
- 1188 PDF objects out of 1200 (max. 8388607)
- 1055 compressed objects within 11 object streams
+ 1194 PDF objects out of 1200 (max. 8388607)
+ 1059 compressed objects within 11 object streams
  85 named destinations out of 1000 (max. 500000)
  204 words of extra memory for PDF output out of 10000 (max. 10000000)
 
