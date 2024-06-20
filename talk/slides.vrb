@@ -1,33 +1,21 @@
-\frametitle{Software Tests: Case Study for v2.5 \\
-	\small \color{rwth-blue} ODE: linear ode}
-	$\frac{d\mathbf{x}}{dt} = A \mathbf{x}$
+\frametitle{Live Demo v2.4 \\
+	\small \color{rwth-blue} Run in Xubuntu}
+	\begin{itemize}	
+			\item 1.Build executable: make
+			\item 2.Execute: ./main.exe
+	\end{itemize}
+	Use function: $y=\frac{1}{2}x_1^2+\frac{1}{2}x_2^2+x_1 x_2$ for minimization with Newton method (cppNum v2.4).
 
-	\begin{lstlisting}
-		#pragma once
-		#include "cppNum/differentialSystem/system.hpp"
-		#include <cassert>
-		
-		template<typename T>
-		la::vector_t<T> ds::system_t::G(const la::vector_t<T> &x, const la::vector_t<T> &p) {
-		int n=x.size();
-		assert(p.size()==n*n);
-		la::vector_t<T> r=la::vector_t<T>::Zero(n);
-		for(int i=0; i<n; i++)
-			for(int j=0; j<n; j++)
-			r(i)+=p(i*n+j)*x(j);
-		return r;
-		}
+	Hessian matrix: $\partial^2y=\begin{bmatrix}1&&1\\1&&1\end{bmatrix}$ is singular, so minimization with Newton method is not applicable.
+	\begin{center}
+		\large Show live demo
+	\end{center}
+	Output of the live demo:
+	\begin{lstlisting}[language=bash]
+		Exception was caught in la::lu_solver_t::run, throw it further.
+		Exception was caught in as::newton_solver_t::run, throw it further.
+		std:exception was caught in co::newton_minimizer_t::run with following message:
+		Matrix is singular, applying LU algorithm for solving a linear system is not possible.
+		co::newton_minimizer_t::run returns an initial value of x. Check the correctness of the input.
 	\end{lstlisting}
-	 For time measurements:
-        \begin{itemize}
-            \item initial value of x: $[1, 1, ..., 1]$
-			\item Parameters p contain matrix $A=$
-			{\tiny
-			$\begin{bmatrix}
-				-1 & -1 & 0 & 0 &... & 0\\
-				1 & -1 & 0 & 0 &... & 0\\
-				0 & 0 & -1-2/n & 0 & ... & 0\\
-				... & ... & ... & ... & ... & ...\\
-				0 & 0 & 0 & ... & 0 & -1-(n-1)/n
-			\end{bmatrix}$}
-        \end{itemize}
+	In the output, one can observe a stack trace and a message describing the exception.

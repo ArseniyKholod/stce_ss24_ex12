@@ -8,5 +8,5 @@
 \beamer@sectionintoc {3}{Documentation}{22}{0}{3}
 \beamer@sectionintoc {4}{Software Tests}{24}{0}{4}
 \beamer@sectionintoc {5}{Project Management}{32}{0}{5}
-\beamer@sectionintoc {6}{Live Software Demo}{35}{0}{6}
+\beamer@sectionintoc {6}{Live Demo}{35}{0}{6}
 \beamer@sectionintoc {7}{Summary and Conclusion}{36}{0}{7}

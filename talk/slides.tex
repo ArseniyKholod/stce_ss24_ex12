@@ -652,8 +652,8 @@
 \end{frame}
 	
 \begin{frame}
-\frametitle{Software Tests: Run Time Difference \\
-	\small \color{rwth-blue} Software Tests 2.4: Convex Polynomial and Cosh Function}
+\frametitle{Software Tests v2.4: Run Time Difference \\
+	\small \color{rwth-blue} Convex Polynomial and Cosh Function}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.65\textwidth]{figures/2.4_4th_order_convex_polynomial.png}
@@ -663,8 +663,8 @@
 \end{frame}
 	
 \begin{frame}
-\frametitle{Software Tests: Run Time Difference \\
-	\small \color{rwth-blue} Software Tests 2.5: Fountain Chain and Linear ODE}
+\frametitle{Software Tests v2.5: Run Time Difference \\
+	\small \color{rwth-blue} Fountain Chain and Linear ODE}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.65\textwidth]{figures/2.5_fountain_chain.png}
@@ -675,7 +675,7 @@
 	
 \begin{frame}
 \frametitle{Software Tests: Run Time Difference \\
-	\small \color{rwth-blue} Software Tests: Conclusion}
+	\small \color{rwth-blue} Conclusion}
 	\begin{itemize}
 		\item Differences between the versions with and without exception handling under different problem sizes:
 		\begin{itemize}
@@ -739,25 +739,30 @@
 	\end{flushleft}
 \end{frame}
 	
-\section{Live Software Demo}
+\section{Live Demo}
 
-\begin{frame}
-\frametitle{Live Software Demo \\
+\begin{frame}[fragile]
+\frametitle{Live Demo v2.4 \\
 	\small \color{rwth-blue} Run in Xubuntu}
 	\begin{itemize}	
-			\item \textbf{1.Build executable with make}
-			\item \textbf{2.Execute:}
-				\begin{itemize}
-				\item ./main.exe + Command-line arguments, (such as testing exception cases).
-				\end{itemize}
-			\item \textbf{3.Plot:}
-				\begin{itemize}
-				\item gnuplot gnuplot.plt
-				\end{itemize}
+			\item 1.Build executable: make
+			\item 2.Execute: ./main.exe
 	\end{itemize}
+	Use function: $y=\frac{1}{2}x_1^2+\frac{1}{2}x_2^2+x_1 x_2$ for minimization with Newton method (cppNum v2.4).
+
+	Hessian matrix: $\partial^2y=\begin{bmatrix}1&&1\\1&&1\end{bmatrix}$ is singular, so minimization with Newton method is not applicable.
 	\begin{center}
-		\large Live demo
+		\large Show live demo
 	\end{center}
+	Output of the live demo:
+	\begin{lstlisting}[language=bash]
+		Exception was caught in la::lu_solver_t::run, throw it further.
+		Exception was caught in as::newton_solver_t::run, throw it further.
+		std:exception was caught in co::newton_minimizer_t::run with following message:
+		Matrix is singular, applying LU algorithm for solving a linear system is not possible.
+		co::newton_minimizer_t::run returns an initial value of x. Check the correctness of the input.
+	\end{lstlisting}
+	In the output, one can observe a stack trace and a message describing the exception. 
 \end{frame}
 
 
