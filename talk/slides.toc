@@ -1,12 +1,13 @@
 \beamer@sectionintoc {1}{Analysis}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{User Requirements}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{System Requirements}{5}{0}{1}
-\beamer@subsectionintoc {1}{3}{Class Model}{9}{0}{1}
-\beamer@sectionintoc {2}{Implementation}{10}{0}{2}
-\beamer@subsectionintoc {2}{1}{Development Infrastructure}{10}{0}{2}
-\beamer@subsectionintoc {2}{2}{Source Code}{11}{0}{2}
-\beamer@sectionintoc {3}{Documentation}{22}{0}{3}
-\beamer@sectionintoc {4}{Software Tests}{24}{0}{4}
-\beamer@sectionintoc {5}{Project Management}{32}{0}{5}
-\beamer@sectionintoc {6}{Live Demo}{35}{0}{6}
-\beamer@sectionintoc {7}{Summary and Conclusion}{36}{0}{7}
+\beamer@sectionintoc {2}{Design}{8}{0}{2}
+\beamer@subsectionintoc {2}{1}{Class Model}{9}{0}{2}
+\beamer@sectionintoc {3}{Implementation}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Development Infrastructure}{10}{0}{3}
+\beamer@subsectionintoc {3}{2}{Source Code}{11}{0}{3}
+\beamer@sectionintoc {4}{Documentation}{22}{0}{4}
+\beamer@sectionintoc {5}{Software Tests}{24}{0}{5}
+\beamer@sectionintoc {6}{Project Management}{32}{0}{6}
+\beamer@sectionintoc {7}{Live Demo}{35}{0}{7}
+\beamer@sectionintoc {8}{Summary and Conclusion}{36}{0}{8}
